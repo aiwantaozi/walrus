@@ -22,16 +22,16 @@ const (
 		       variables:
 		         type: object
 		         properties:
-	               image:
+	                   image:
 		             title: Image Name
-		   		     type: string
-		   		     description: Docker image name
-		   		     x-walrus-ui:
-		   		       group: Basic
+		   	     type: string
+		             description: Docker image name
+		             x-walrus-ui:
+		   	       group: Basic
 		               showIf:
 		               hidden:
 		               immutable:
-		   			   widget:
+		   	       widget:
 		   ```
 	*/
 )
