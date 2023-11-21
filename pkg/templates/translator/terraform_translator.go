@@ -129,19 +129,12 @@ func (t TerraformTranslator) SchemaOfOriginalType(tp any, opts Options) *openapi
 		// Schema.
 		s := openapi3.NewArraySchema()
 
-		// Default.
-		setDefault(s, def)
-
 		// Property.
 		var (
 			ts   = typ.TupleElementTypes()
-			refs = make([]*openapi3.SchemaRef, len(ts))
+			refs = make([]*openapi3.Schema, len(ts))
 			te   []hclsyntax.Expression
 		)
-
-		if opts.TypeExpress != nil {
-			te = getTupleItemExpression(opts.TypeExpress)
-		}
 
 		for i, tt := range ts {
 			o := Options{
@@ -152,13 +145,35 @@ func (t TerraformTranslator) SchemaOfOriginalType(tp any, opts Options) *openapi
 				o.TypeExpress = te[i]
 			}
 
-			refs[i] = t.SchemaOfOriginalType(tt, o).NewRef()
+			refs[i] = t.SchemaOfOriginalType(tt, o)
 		}
 
-		s.WithLength(int64(len(ts))).
-			WithItems(&openapi3.Schema{
-				OneOf: refs,
-			})
+		switch {
+		case len(refs) == 1:
+			s.WithItems(refs[0]).
+				WithLength(1)
+		case len(refs) > 1:
+			var diffSchema bool
+
+			for i := 0; i < len(refs); i++ {
+				for j := i + 1; j < len(refs); j++ {
+					if refs[i] != refs[j] {
+						diffSchema = true
+						break
+					}
+				}
+			}
+
+			if diffSchema {
+				s.WithItems(openapi3.NewObjectSchema()).
+					WithLength(int64(len(ts)))
+			} else {
+				s.WithItems(refs[0]).
+					WithLength(int64(len(ts)))
+			}
+		default:
+			s.WithItems(openapi3.NewObjectSchema())
+		}
 
 		s.Title = title
 		s.Description = description
