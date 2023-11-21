@@ -192,11 +192,13 @@ jobs:
           DOCKERHUB_PASSWORD: "${{ secrets.CI_DOCKERHUB_PASSWORD }}"
         continue-on-error: true
       - name: Rename Release Assets
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           cd .dist/package/${{ matrix.target }}/${{ matrix.task }}/build
           for file in cli*; do mv "$file" "$(echo "$file" | sed 's/^cli/walrus-cli/')"; done
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           fail_on_unmatched_files: true
           files: |
