@@ -154,7 +154,7 @@ jobs:
           fail_on_unmatched_files: true
           tag_name: ${{ steps.metadata.outputs.version }}
           files: |
-            .dist/package/${{ matrix.target }}/${{ matrix.task }}/build/cli
+            .dist/package/${{ matrix.target }}/${{ matrix.task }}/build/cli/*
       - name: Release CLI To OSS
         uses: TencentCloud/cos-action@b0aa648235fb35a1bdd6a77f529eb0ac4c2f1c25
         if: ${{ github.event_name != 'pull_request' }}
