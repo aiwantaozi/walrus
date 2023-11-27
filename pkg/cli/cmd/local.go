@@ -16,6 +16,10 @@ import (
 
 // Local generate local command.
 func Local() *cobra.Command {
+	ann := map[string]string{
+		api.AnnResourceName: "local",
+	}
+
 	installOptions := local.InstallOptions{}
 	// Command install.
 	installCmd := &cobra.Command{
@@ -26,6 +30,7 @@ func Local() *cobra.Command {
 				panic(err)
 			}
 		},
+		Annotations: ann,
 	}
 
 	installOptions.AddFlags(installCmd)
@@ -39,13 +44,15 @@ func Local() *cobra.Command {
 				panic(err)
 			}
 		},
+		Annotations: ann,
 	}
 
 	// Command local.
 	localCmd := &cobra.Command{
-		Use:     "local",
-		Short:   "Manage local Walrus setup",
-		GroupID: common.GroupOther.ID,
+		Use:         "local",
+		Short:       "Manage local Walrus setup",
+		GroupID:     common.GroupOther.ID,
+		Annotations: ann,
 	}
 	localCmd.AddCommand(
 		installCmd,

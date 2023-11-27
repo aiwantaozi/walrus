@@ -6,12 +6,17 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
+	"github.com/seal-io/walrus/pkg/cli/api"
 	"github.com/seal-io/walrus/pkg/cli/common"
 	"github.com/seal-io/walrus/pkg/cli/schema"
 )
 
 // Schema generate ui schema command.
 func Schema() *cobra.Command {
+	ann := map[string]string{
+		api.AnnResourceName: "schema",
+	}
+
 	cfg := schema.GenerateOption{}
 
 	// Command ui schema generate.
@@ -31,14 +36,16 @@ func Schema() *cobra.Command {
 				panic(err)
 			}
 		},
+		Annotations: ann,
 	}
 	cfg.AddFlags(generateCmd)
 
 	// Command schema.
 	cmd := &cobra.Command{
-		Use:     "schema",
-		Short:   "Manage schema for templates",
-		GroupID: common.GroupOther.ID,
+		Use:         "schema",
+		Short:       "Manage schema for templates",
+		GroupID:     common.GroupOther.ID,
+		Annotations: ann,
 	}
 	cmd.AddCommand(
 		generateCmd,

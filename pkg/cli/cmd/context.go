@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
+	"github.com/seal-io/walrus/pkg/cli/api"
 	"github.com/seal-io/walrus/pkg/cli/common"
 	"github.com/seal-io/walrus/pkg/cli/config"
 	"github.com/seal-io/walrus/utils/strs"
@@ -15,8 +16,11 @@ import (
 
 // Context generate context command.
 func Context(serverConfig *config.Config) *cobra.Command {
-	cfgCtx := config.ScopeContext{}
+	ann := map[string]string{
+		api.AnnResourceName: "context",
+	}
 
+	cfgCtx := config.ScopeContext{}
 	// Command switch context.
 	switchCmd := &cobra.Command{
 		Use:   "switch",
@@ -62,6 +66,7 @@ func Context(serverConfig *config.Config) *cobra.Command {
 			fmt.Println("Switched context successfully.")
 			contextCurrent(serverConfig)
 		},
+		Annotations: ann,
 	}
 
 	cfgCtx.AddFlags(switchCmd)
@@ -73,13 +78,15 @@ func Context(serverConfig *config.Config) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			contextCurrent(serverConfig)
 		},
+		Annotations: ann,
 	}
 
 	// Command context switch.
 	contextCmd := &cobra.Command{
-		Use:     "context",
-		Short:   "Manage CLI context",
-		GroupID: common.GroupOther.ID,
+		Use:         "context",
+		Short:       "Manage CLI context",
+		GroupID:     common.GroupOther.ID,
+		Annotations: ann,
 	}
 
 	contextCmd.AddCommand(

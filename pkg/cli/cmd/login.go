@@ -20,6 +20,10 @@ import (
 
 // Login generate login command.
 func Login(serverConfig *config.Config, root *cobra.Command) *cobra.Command {
+	ann := map[string]string{
+		api.AnnResourceName: "login",
+	}
+
 	// Command config setup.
 	cfg := config.ServerContext{}
 
@@ -62,6 +66,7 @@ func Login(serverConfig *config.Config, root *cobra.Command) *cobra.Command {
 				panic(err)
 			}
 		},
+		Annotations: ann,
 	}
 
 	cfg.AddFlags(loginCmd)

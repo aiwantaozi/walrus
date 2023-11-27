@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/seal-io/walrus/pkg/cli/api"
 	"github.com/seal-io/walrus/pkg/cli/common"
 	"github.com/seal-io/walrus/pkg/cli/config"
 	"github.com/seal-io/walrus/pkg/cli/manifest"
@@ -14,8 +15,11 @@ import (
 )
 
 func Apply(sc *config.Config) (*cobra.Command, error) {
-	flags := &manifest.ApplyOption{}
+	ann := map[string]string{
+		api.AnnResourceName: "apply",
+	}
 
+	flags := &manifest.ApplyOption{}
 	use := "apply"
 	cmd := &cobra.Command{
 		Use:     use,
@@ -37,6 +41,7 @@ func Apply(sc *config.Config) (*cobra.Command, error) {
 				panic(err)
 			}
 		},
+		Annotations: ann,
 	}
 
 	flags.AddFlags(cmd)

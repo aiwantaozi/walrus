@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/seal-io/walrus/pkg/cli/api"
 	"github.com/seal-io/walrus/pkg/cli/common"
 	"github.com/seal-io/walrus/pkg/cli/config"
 	"github.com/seal-io/walrus/pkg/cli/manifest"
@@ -13,6 +14,10 @@ import (
 )
 
 func Preview(sc *config.Config) (*cobra.Command, error) {
+	ann := map[string]string{
+		api.AnnResourceName: "preview",
+	}
+
 	flags := &manifest.PreviewOption{}
 
 	use := "preview"
@@ -45,6 +50,7 @@ func Preview(sc *config.Config) (*cobra.Command, error) {
 				panic(err)
 			}
 		},
+		Annotations: ann,
 	}
 
 	flags.AddFlags(cmd)

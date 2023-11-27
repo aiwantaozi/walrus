@@ -17,6 +17,7 @@ import (
 	"github.com/seal-io/walrus/pkg/cli/config"
 	"github.com/seal-io/walrus/pkg/cli/formatter"
 	"github.com/seal-io/walrus/utils/json"
+	"github.com/seal-io/walrus/utils/strs"
 )
 
 // Operation represents an API action, e.g. list-things or create-user.
@@ -71,7 +72,7 @@ func (o Operation) Command(sc *config.Config) *cobra.Command {
 	if o.BodyMediaType != "" {
 		argSpec = cobra.MinimumNArgs(argCount)
 	}
-
+	res := strings.ToLower(strs.Singularize(o.Group))
 	sub := &cobra.Command{
 		Use:        use,
 		Short:      o.Short,
@@ -79,6 +80,9 @@ func (o Operation) Command(sc *config.Config) *cobra.Command {
 		Args:       argSpec,
 		Hidden:     o.Hidden,
 		Deprecated: o.Deprecated,
+		Annotations: map[string]string{
+			AnnResourceName: res,
+		},
 		PreRun: func(cmd *cobra.Command, args []string) {
 			err := sc.Inject(cmd)
 			if err != nil {

@@ -13,6 +13,10 @@ import (
 
 // Version return version command.
 func Version(sc *config.Config) *cobra.Command {
+	ann := map[string]string{
+		api.AnnResourceName: "version",
+	}
+
 	return &cobra.Command{
 		Use:     "version",
 		Short:   "Print the CLI and server version information",
@@ -27,5 +31,6 @@ func Version(sc *config.Config) *cobra.Command {
 
 			fmt.Print(string(b))
 		},
+		Annotations: ann,
 	}
 }

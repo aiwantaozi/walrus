@@ -4,6 +4,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
+	"github.com/seal-io/walrus/pkg/cli/api"
 	pkgcmd "github.com/seal-io/walrus/pkg/cli/cmd"
 	"github.com/seal-io/walrus/pkg/cli/common"
 	"github.com/seal-io/walrus/pkg/cli/config"
@@ -22,6 +23,9 @@ func NewRootCmd() *cobra.Command {
 		Short:   "Command line interface for Walrus",
 		Example: configSetupExample,
 		Args:    cobra.MinimumNArgs(1),
+		Annotations: map[string]string{
+			api.AnnResourceName: cliName,
+		},
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			if globalConfig.Debug {
 				log.SetLevel(log.DebugLevel)
@@ -45,6 +49,7 @@ func NewRootCmd() *cobra.Command {
 		NewVersionCmd(),
 		NewLocalCmd(),
 		NewPreviewCmd(),
+		NewDocCmd(cmd),
 	)
 
 	cmd.SetHelpTemplate(helpTemplate)
@@ -55,6 +60,7 @@ func NewRootCmd() *cobra.Command {
 	cmd.SetCompletionCommandGroupID(common.GroupOther.ID)
 	cmd.SetHelpCommandGroupID(common.GroupOther.ID)
 
+	SetCompletionAnn(cmd)
 	return cmd
 }
 
