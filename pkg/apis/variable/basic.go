@@ -9,6 +9,35 @@ import (
 	"github.com/seal-io/walrus/pkg/dao/model/variable"
 )
 
+func (h Handler) Get(req GetRequest) (GetResponse, error) {
+	entity, err := h.modelClient.Variables().Query().
+		Where(variable.ID(req.ID)).
+		Only(req.Context)
+	if err != nil {
+		return nil, err
+	}
+
+	// Fill edges to return name in result to support walrus-file.
+	switch {
+	case entity.ProjectID.Valid() && entity.EnvironmentID.Valid():
+		entity.Edges.Project = &model.Project{
+			ID:   entity.ProjectID,
+			Name: req.Project.Name,
+		}
+		entity.Edges.Environment = &model.Environment{
+			ID:   entity.EnvironmentID,
+			Name: req.Environment.Name,
+		}
+	case entity.ProjectID.Valid():
+		entity.Edges.Project = &model.Project{
+			ID:   entity.ProjectID,
+			Name: req.Project.Name,
+		}
+	}
+
+	return model.ExposeVariable(entity), nil
+}
+
 func (h Handler) Create(req CreateRequest) (CreateResponse, error) {
 	entity := req.Model()
 
@@ -32,6 +61,14 @@ func (h Handler) Update(req UpdateRequest) error {
 
 func (h Handler) Delete(req DeleteRequest) error {
 	return h.modelClient.Variables().DeleteOneID(req.ID).
+		Exec(req.Context)
+}
+
+func (h Handler) Patch(req PatchRequest) error {
+	entity := req.Model()
+
+	return h.modelClient.Variables().UpdateOne(entity).
+		Set(entity).
 		Exec(req.Context)
 }
 
@@ -274,4 +311,17 @@ func (h Handler) CollectionDelete(req CollectionDeleteRequest) error {
 
 		return err
 	})
+}
+
+func (h Handler) CollectionCreate(req CollectionCreateRequest) (CollectionCreateResponse, error) {
+	entities := req.Model()
+
+	entities, err := h.modelClient.Variables().CreateBulk().
+		Set(entities...).
+		Save(req.Context)
+	if err != nil {
+		return nil, err
+	}
+
+	return model.ExposeVariables(entities), nil
 }
