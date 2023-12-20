@@ -46,7 +46,7 @@ func ParseModuleAttributes(
 
 	replaced := !onlyValidated
 
-	attrs, templateVariables, dependencyResourceOutputs, err = parseAttributeReplace(attributes, replaced)
+	attrs, templateVariables, dependencyResourceOutputs, err = ParseAttributeReplace(attributes, replaced)
 	if err != nil {
 		return
 	}
@@ -60,7 +60,7 @@ func ParseModuleAttributes(
 			})
 		}
 	} else {
-		variables, err = getVariables(ctx, mc, templateVariables, opts.ProjectID, opts.EnvironmentID)
+		variables, err = GetVariables(ctx, mc, templateVariables, opts.ProjectID, opts.EnvironmentID)
 		if err != nil {
 			return nil, nil, nil, err
 		}
@@ -106,12 +106,12 @@ func toDependOutputMap(dependencyResourceOutputs []string) map[string]string {
 	return dependOutputMap
 }
 
-// parseAttributeReplace parses attribute variable ${var.name} replaces it with ${var._variablePrefix+name},
+// ParseAttributeReplace parses attribute variable ${var.name} replaces it with ${var._variablePrefix+name},
 // service reference ${svc.name.output} replaces it with ${var._resourcePrefix+name},
 // resource reference ${res.name.output} replaces it with ${var._resourcePrefix+name}
 // and returns variable names and output names.
 // Replaced flag indicates whether to replace the module attribute variable with prefix string.
-func parseAttributeReplace(
+func ParseAttributeReplace(
 	attributes map[string]any,
 	replaced bool,
 ) (map[string]any, []string, []string, error) {
@@ -179,7 +179,7 @@ func parseAttributeReplace(
 	return attributes, variableMatched.List(), serviceMatched.List(), nil
 }
 
-func getVariables(
+func GetVariables(
 	ctx context.Context,
 	client model.ClientSet,
 	variableNames []string,

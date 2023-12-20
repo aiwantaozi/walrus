@@ -180,7 +180,7 @@ func TestParseAttributeReplace(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		attrs, actualVariableNames, actualResourceOutputs, err := parseAttributeReplace(
+		attrs, actualVariableNames, actualResourceOutputs, err := ParseAttributeReplace(
 			tc.attributes,
 			tc.replaced,
 		)

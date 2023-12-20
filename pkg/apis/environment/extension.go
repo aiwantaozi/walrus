@@ -1,17 +1,20 @@
 package environment
 
 import (
+	"fmt"
+
 	"entgo.io/ent/dialect/sql"
+	"github.com/getkin/kin-openapi/openapi3"
 
 	"github.com/seal-io/walrus/pkg/auths"
 	"github.com/seal-io/walrus/pkg/auths/session"
-	"github.com/seal-io/walrus/pkg/cli/config"
 	"github.com/seal-io/walrus/pkg/cli/manifest"
 	"github.com/seal-io/walrus/pkg/dao"
 	"github.com/seal-io/walrus/pkg/dao/model"
 	"github.com/seal-io/walrus/pkg/dao/model/environment"
 	"github.com/seal-io/walrus/pkg/dao/model/project"
 	"github.com/seal-io/walrus/pkg/dao/model/resource"
+	"github.com/seal-io/walrus/pkg/dao/model/resourcedefinition"
 	"github.com/seal-io/walrus/pkg/dao/model/resourcedefinitionmatchingrule"
 	"github.com/seal-io/walrus/pkg/dao/model/resourcerelationship"
 	"github.com/seal-io/walrus/pkg/dao/model/template"
@@ -27,6 +30,7 @@ import (
 	pkgresource "github.com/seal-io/walrus/pkg/resource"
 	pkgcomponent "github.com/seal-io/walrus/pkg/resourcecomponents"
 	"github.com/seal-io/walrus/pkg/resourcedefinitions"
+	"github.com/seal-io/walrus/pkg/templates/translator"
 	"github.com/seal-io/walrus/utils/errorx"
 	"github.com/seal-io/walrus/utils/log"
 )
@@ -402,16 +406,154 @@ func (h Handler) RouteApply(req RouteApplyRequest) error {
 	return nil
 }
 
-func serverContext(project, env, token string) *config.Config {
-	return &config.Config{
-		ServerContext: config.ServerContext{
-			ScopeContext: config.ScopeContext{
-				Project:     project,
-				Environment: env,
-			},
-			Server:   "https://localhost",
-			Insecure: true,
-			Token:    token,
-		},
+func (h Handler) RouteExport(req RouteExportRequest) error {
+	res, err := h.modelClient.Resources().Query().
+		Where(
+			resource.ProjectID(req.Project.ID),
+			resource.EnvironmentID(req.EnvironmentQueryInput.ID),
+			resource.IDIn(req.IDs...)).
+		Select(
+			resource.FieldName,
+			resource.FieldDescription,
+			resource.FieldLabels,
+			resource.FieldAttributes,
+			resource.FieldType,
+			resource.FieldTemplateID).
+		WithTemplate(func(tvq *model.TemplateVersionQuery) {
+			tvq.Select(
+				templateversion.FieldName,
+				templateversion.FieldVersion,
+				templateversion.FieldSchema)
+		}).
+		WithResourceDefinition(func(rdq *model.ResourceDefinitionQuery) {
+			rdq.Select(
+				resourcedefinition.FieldID,
+				resourcedefinition.FieldSchema)
+		}).
+		All(req.Context)
+	if err != nil {
+		return err
 	}
+
+	var (
+		resSpec = make([]types.ResourceSpec, len(res))
+		varSpec = make([]types.VariableSpec, 0)
+	)
+
+	for i := range res {
+		// Resources.
+		resSpec[i] = toResourceSpec(req, res[i])
+
+		// Variables.
+		vs, err := h.getVariables(req, res[i])
+		if err != nil {
+			return errorx.Wrap(err, "failed to get variables")
+		}
+
+		varSpec = append(varSpec, vs...)
+	}
+
+	// Export.
+	wf := &types.WalrusFile{
+		Version:   types.WalrusFileVersion,
+		Resources: resSpec,
+		Variables: varSpec,
+	}
+
+	yml, err := wf.Yaml()
+	if err != nil {
+		return errorx.Wrap(err, "failed to marshal walrus file")
+	}
+
+	req.Context.Writer.WriteHeader(200)
+	req.Context.Writer.Header().Set("Content-Type", "text/yaml")
+	req.Context.Writer.Header().
+		Set("Content-Disposition", fmt.Sprintf(`attachment; filename="%s"`, types.WalrusFilename))
+	_, _ = req.Context.Writer.Write(yml)
+
+	return nil
+}
+
+func (h Handler) getVariables(req RouteExportRequest, res *model.Resource) ([]types.VariableSpec, error) {
+	var schema *openapi3.Schema
+
+	switch {
+	case res.TemplateID != nil && res.Edges.Template != nil:
+		schema = res.Edges.Template.Schema.VariableSchema()
+	case res.Type != "" && res.Edges.ResourceDefinition != nil:
+		schema = res.Edges.ResourceDefinition.Schema.VariableSchema()
+	}
+
+	if schema == nil || schema.IsEmpty() {
+		return nil, nil
+	}
+
+	attrs, err := translator.ToGoTypeValues(res.Attributes, *schema)
+	if err != nil {
+		return nil, err
+	}
+
+	_, templateVariables, _, _ := deployertf.ParseAttributeReplace(attrs, false)
+
+	variables, err := deployertf.GetVariables(
+		req.Context,
+		h.modelClient,
+		templateVariables,
+		req.Project.ID,
+		req.EnvironmentQueryInput.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(variables) == 0 {
+		return nil, nil
+	}
+
+	spec := make([]types.VariableSpec, len(variables))
+	for i := range variables {
+		spec[i] = types.VariableSpec{
+			Name:        variables[i].Name,
+			Description: variables[i].Description,
+			Sensitive:   variables[i].Sensitive,
+			Value:       variables[i].Value,
+		}
+		if variables[i].ProjectID.Valid() {
+			spec[i].Project = &types.MetadataName{
+				Name: req.Project.Name,
+			}
+		}
+
+		if variables[i].EnvironmentID.Valid() {
+			spec[i].Environment = &types.MetadataName{
+				Name: req.EnvironmentQueryInput.Name,
+			}
+		}
+	}
+
+	return spec, nil
+}
+
+func toResourceSpec(req RouteExportRequest, res *model.Resource) types.ResourceSpec {
+	spec := types.ResourceSpec{
+		Project: &types.MetadataName{
+			Name: req.Project.Name,
+		},
+		Environment: &types.MetadataName{
+			Name: req.EnvironmentQueryInput.Name,
+		},
+		Name:        res.Name,
+		Description: res.Description,
+		Labels:      res.Labels,
+		Attributes:  res.Attributes,
+		Type:        res.Type,
+	}
+
+	if res.Edges.Template != nil {
+		spec.Template = &types.TemplateSpec{
+			Name:    res.Edges.Template.Name,
+			Version: res.Edges.Template.Version,
+		}
+	}
+
+	return spec
 }
