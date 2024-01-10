@@ -478,14 +478,16 @@ func (h Handler) RouteGetDiffLatest(req RouteGetDiffLatestRequest) (*RouteGetDif
 
 	return &RouteGetDiffLatestResponse{
 		Old: RevisionDiff{
-			TemplateName:    latestRevision.TemplateName,
-			TemplateVersion: latestRevision.TemplateVersion,
-			Attributes:      latestRevision.Attributes,
+			TemplateName:       latestRevision.TemplateName,
+			TemplateVersion:    latestRevision.TemplateVersion,
+			Attributes:         latestRevision.Attributes,
+			ComputedAttributes: latestRevision.ComputedAttributes,
 		},
 		New: RevisionDiff{
-			TemplateName:    compareRevision.TemplateName,
-			TemplateVersion: compareRevision.TemplateVersion,
-			Attributes:      compareRevision.Attributes,
+			TemplateName:       compareRevision.TemplateName,
+			TemplateVersion:    compareRevision.TemplateVersion,
+			Attributes:         compareRevision.Attributes,
+			ComputedAttributes: compareRevision.ComputedAttributes,
 		},
 	}, nil
 }
@@ -529,18 +531,20 @@ func (h Handler) RouteGetDiffPrevious(req RouteGetDiffPreviousRequest) (*RouteGe
 
 	if previousRevision != nil {
 		old = RevisionDiff{
-			TemplateName:    previousRevision.TemplateName,
-			TemplateVersion: previousRevision.TemplateVersion,
-			Attributes:      previousRevision.Attributes,
+			TemplateName:       previousRevision.TemplateName,
+			TemplateVersion:    previousRevision.TemplateVersion,
+			Attributes:         previousRevision.Attributes,
+			ComputedAttributes: previousRevision.ComputedAttributes,
 		}
 	}
 
 	return &RouteGetDiffPreviousResponse{
 		Old: old,
 		New: RevisionDiff{
-			TemplateName:    compareRevision.TemplateName,
-			TemplateVersion: compareRevision.TemplateVersion,
-			Attributes:      compareRevision.Attributes,
+			TemplateName:       compareRevision.TemplateName,
+			TemplateVersion:    compareRevision.TemplateVersion,
+			Attributes:         compareRevision.Attributes,
+			ComputedAttributes: compareRevision.ComputedAttributes,
 		},
 	}, nil
 }
