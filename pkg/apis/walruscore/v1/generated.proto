@@ -57,6 +57,8 @@ message CatalogList {
 // CatalogSpec defines the desired state of Catalog.
 message CatalogSpec {
   // TemplateFormat of the catalog.
+  // +k8s:validation:cel[0]:rule="oldSelf == self"
+  // +k8s:validation:cel[0]:message="immutable field"
   // +required
   optional string templateFormat = 1;
 

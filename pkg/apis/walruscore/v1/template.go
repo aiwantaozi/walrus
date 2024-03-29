@@ -109,7 +109,7 @@ type TemplateVersion struct {
 	URL string `json:"url"`
 
 	// Schema holds the schema for the template version.
-	SchemaConfigmapRef *LocalObjectReference `json:"schemaRef,omitempty"`
+	SchemaRef *LocalObjectReference `json:"schemaRef,omitempty"`
 
 	// OriginalUISchema holds the original UI schema for the template version.
 	OriginalUISchemaRef *LocalObjectReference `json:"originalUISchemaRef,omitempty"`

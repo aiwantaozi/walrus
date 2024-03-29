@@ -10,7 +10,7 @@ package v1
 type TemplateVersionApplyConfiguration struct {
 	Version             *string                                 `json:"version,omitempty"`
 	URL                 *string                                 `json:"url,omitempty"`
-	SchemaConfigmapRef  *LocalObjectReferenceApplyConfiguration `json:"schemaRef,omitempty"`
+	SchemaRef           *LocalObjectReferenceApplyConfiguration `json:"schemaRef,omitempty"`
 	OriginalUISchemaRef *LocalObjectReferenceApplyConfiguration `json:"originalUISchemaRef,omitempty"`
 	UISchemaRef         *LocalObjectReferenceApplyConfiguration `json:"uiSchemaRef,omitempty"`
 }
@@ -37,11 +37,11 @@ func (b *TemplateVersionApplyConfiguration) WithURL(value string) *TemplateVersi
 	return b
 }
 
-// WithSchemaConfigmapRef sets the SchemaConfigmapRef field in the declarative configuration to the given value
+// WithSchemaRef sets the SchemaRef field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
-// If called multiple times, the SchemaConfigmapRef field is set to the value of the last call.
-func (b *TemplateVersionApplyConfiguration) WithSchemaConfigmapRef(value *LocalObjectReferenceApplyConfiguration) *TemplateVersionApplyConfiguration {
-	b.SchemaConfigmapRef = value
+// If called multiple times, the SchemaRef field is set to the value of the last call.
+func (b *TemplateVersionApplyConfiguration) WithSchemaRef(value *LocalObjectReferenceApplyConfiguration) *TemplateVersionApplyConfiguration {
+	b.SchemaRef = value
 	return b
 }
 

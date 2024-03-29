@@ -162,6 +162,12 @@ func crd_pkg_apis_walruscore_v1_Catalog() *v1.CustomResourceDefinition {
 										"templateFormat": {
 											Description: "TemplateFormat of the catalog.",
 											Type:        "string",
+											XValidations: []v1.ValidationRule{
+												{
+													Rule:    "oldSelf == self",
+													Message: "immutable field",
+												},
+											},
 										},
 										"vcsSource": {
 											Description: "VCSSource specifies the vcs source configure.",

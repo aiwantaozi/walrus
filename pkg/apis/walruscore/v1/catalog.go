@@ -23,6 +23,8 @@ var _ runtime.Object = (*Catalog)(nil)
 // CatalogSpec defines the desired state of Catalog.
 type CatalogSpec struct {
 	// TemplateFormat of the catalog.
+	// +k8s:validation:cel[0]:rule="oldSelf == self"
+	// +k8s:validation:cel[0]:message="immutable field"
 	// +required
 	TemplateFormat string `json:"templateFormat"`
 
@@ -89,10 +91,14 @@ type VCSSource struct {
 	TokenAuth `json:",inline"`
 
 	// +k8s:validation:enum=["github","gitlab","gitee"]
+	// +k8s:validation:cel[0]:rule="oldSelf == self"
+	// +k8s:validation:cel[0]:message="immutable field"
 	// +required
 	Platform string `json:"platform"`
 
 	// URL of the source address, a valid URL contains at least a protocol and host.
+	// +k8s:validation:cel[0]:rule="oldSelf == self"
+	// +k8s:validation:cel[0]:message="immutable field"
 	// +required
 	URL string `json:"url"`
 }

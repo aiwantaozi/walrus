@@ -1957,6 +1957,11 @@ func schema_pkg_apis_walruscore_v1_CatalogSpec(ref common.ReferenceCallback) com
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"templateFormat": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-validations": []interface{}{map[string]interface{}{"message": "immutable field", "rule": "oldSelf == self"}},
+							},
+						},
 						SchemaProps: spec.SchemaProps{
 							Description: "TemplateFormat of the catalog.",
 							Default:     "",
