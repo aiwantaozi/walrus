@@ -37,7 +37,7 @@ func (b *HelmRepositorySourceApplyConfiguration) WithPassword(value string) *Hel
 // WithSecretRef sets the SecretRef field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the SecretRef field is set to the value of the last call.
-func (b *HelmRepositorySourceApplyConfiguration) WithSecretRef(value *BasicAuthObjectReferenceApplyConfiguration) *HelmRepositorySourceApplyConfiguration {
+func (b *HelmRepositorySourceApplyConfiguration) WithSecretRef(value *LocalObjectReferenceApplyConfiguration) *HelmRepositorySourceApplyConfiguration {
 	b.SecretRef = value
 	return b
 }

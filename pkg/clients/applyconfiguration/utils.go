@@ -774,8 +774,6 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		// Group=walruscore.seal.io, Version=v1
 	case walruscorev1.SchemeGroupVersion.WithKind("BasicAuth"):
 		return &applyconfigurationwalruscorev1.BasicAuthApplyConfiguration{}
-	case walruscorev1.SchemeGroupVersion.WithKind("BasicAuthObjectReference"):
-		return &applyconfigurationwalruscorev1.BasicAuthObjectReferenceApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("Catalog"):
 		return &applyconfigurationwalruscorev1.CatalogApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("CatalogSpec"):
@@ -796,16 +794,12 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &applyconfigurationwalruscorev1.LocalObjectReferenceApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("OCIRegistrySource"):
 		return &applyconfigurationwalruscorev1.OCIRegistrySourceApplyConfiguration{}
-	case walruscorev1.SchemeGroupVersion.WithKind("OriginalUISchemaObjectReference"):
-		return &applyconfigurationwalruscorev1.OriginalUISchemaObjectReferenceApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("Resource"):
 		return &applyconfigurationwalruscorev1.ResourceApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("ResourceDefinition"):
 		return &applyconfigurationwalruscorev1.ResourceDefinitionApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("ResourceRun"):
 		return &applyconfigurationwalruscorev1.ResourceRunApplyConfiguration{}
-	case walruscorev1.SchemeGroupVersion.WithKind("SchemaObjectReference"):
-		return &applyconfigurationwalruscorev1.SchemaObjectReferenceApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("Template"):
 		return &applyconfigurationwalruscorev1.TemplateApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("TemplateSpec"):
@@ -816,10 +810,6 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &applyconfigurationwalruscorev1.TemplateVersionApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("TokenAuth"):
 		return &applyconfigurationwalruscorev1.TokenAuthApplyConfiguration{}
-	case walruscorev1.SchemeGroupVersion.WithKind("TokenObjectReference"):
-		return &applyconfigurationwalruscorev1.TokenObjectReferenceApplyConfiguration{}
-	case walruscorev1.SchemeGroupVersion.WithKind("UISchemaObjectReference"):
-		return &applyconfigurationwalruscorev1.UISchemaObjectReferenceApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("VCSRepository"):
 		return &applyconfigurationwalruscorev1.VCSRepositoryApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("VCSSource"):

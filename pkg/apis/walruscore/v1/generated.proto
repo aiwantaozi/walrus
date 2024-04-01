@@ -29,12 +29,7 @@ message BasicAuth {
   // SecretRef specifies the Secret containing authentication credentials for helm repository.
   // For HTTP/S basic auth the secret must contain 'username' and 'password' fields.
   // +optional
-  optional BasicAuthObjectReference secretRef = 3;
-}
-
-// TODO:(michelia)
-message BasicAuthObjectReference {
-  optional LocalObjectReference localObjectReference = 1;
+  optional LocalObjectReference secretRef = 3;
 }
 
 // Catalog is the schema for the catalogs API.
@@ -170,7 +165,6 @@ message HelmRepositorySource {
   optional string url = 2;
 }
 
-// TODO:(michelia)
 message LocalObjectReference {
   // Name of the object.
   optional string name = 1;
@@ -184,11 +178,6 @@ message OCIRegistrySource {
   // Domain for OCI registry.
   // +optional
   optional string domain = 2;
-}
-
-// TODO(michelia)
-message OriginalUISchemaObjectReference {
-  optional LocalObjectReference localObjectReference = 1;
 }
 
 // Resource is the schema for the resources API.
@@ -281,11 +270,6 @@ message ResourceSpec {
 message ResourceStatus {
 }
 
-// TODO(michelia)
-message SchemaObjectReference {
-  optional LocalObjectReference localObjectReference = 1;
-}
-
 // Template is the schema for the templates API.
 //
 // +genclient
@@ -356,13 +340,13 @@ message TemplateVersion {
   optional string url = 2;
 
   // Schema holds the schema for the template version.
-  optional SchemaObjectReference schemaRef = 3;
+  optional LocalObjectReference schemaRef = 3;
 
   // OriginalUISchema holds the original UI schema for the template version.
-  optional OriginalUISchemaObjectReference originalUISchemaRef = 4;
+  optional LocalObjectReference originalUISchemaRef = 4;
 
   // UISchema holds the UI schema for the template version.
-  optional UISchemaObjectReference uiSchemaRef = 5;
+  optional LocalObjectReference uiSchemaRef = 5;
 }
 
 message TokenAuth {
@@ -373,16 +357,7 @@ message TokenAuth {
   // SecretRef specifies the Secret containing authentication credentials.
   // For HTTP/S bear token the secret must contain 'token' field.
   // +optional
-  optional TokenObjectReference secretRef = 2;
-}
-
-message TokenObjectReference {
-  optional LocalObjectReference localObjectReference = 1;
-}
-
-// TODO(michelia)
-message UISchemaObjectReference {
-  optional LocalObjectReference localObjectReference = 1;
+  optional LocalObjectReference secretRef = 2;
 }
 
 // VCSRepository specifies the vcs repository of the template.

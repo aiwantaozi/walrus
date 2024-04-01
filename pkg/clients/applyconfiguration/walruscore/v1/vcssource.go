@@ -30,7 +30,7 @@ func (b *VCSSourceApplyConfiguration) WithToken(value string) *VCSSourceApplyCon
 // WithSecretRef sets the SecretRef field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the SecretRef field is set to the value of the last call.
-func (b *VCSSourceApplyConfiguration) WithSecretRef(value *TokenObjectReferenceApplyConfiguration) *VCSSourceApplyConfiguration {
+func (b *VCSSourceApplyConfiguration) WithSecretRef(value *LocalObjectReferenceApplyConfiguration) *VCSSourceApplyConfiguration {
 	b.SecretRef = value
 	return b
 }

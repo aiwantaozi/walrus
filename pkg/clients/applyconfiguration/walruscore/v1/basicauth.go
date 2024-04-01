@@ -8,9 +8,9 @@ package v1
 // BasicAuthApplyConfiguration represents an declarative configuration of the BasicAuth type for use
 // with apply.
 type BasicAuthApplyConfiguration struct {
-	Username  *string                                     `json:"username,omitempty"`
-	Password  *string                                     `json:"password,omitempty"`
-	SecretRef *BasicAuthObjectReferenceApplyConfiguration `json:"secretRef,omitempty"`
+	Username  *string                                 `json:"username,omitempty"`
+	Password  *string                                 `json:"password,omitempty"`
+	SecretRef *LocalObjectReferenceApplyConfiguration `json:"secretRef,omitempty"`
 }
 
 // BasicAuthApplyConfiguration constructs an declarative configuration of the BasicAuth type for use with
@@ -38,7 +38,7 @@ func (b *BasicAuthApplyConfiguration) WithPassword(value string) *BasicAuthApply
 // WithSecretRef sets the SecretRef field in the declarative configuration to the given value
 // and returns the receiver, so that objects can be built by chaining "With" function invocations.
 // If called multiple times, the SecretRef field is set to the value of the last call.
-func (b *BasicAuthApplyConfiguration) WithSecretRef(value *BasicAuthObjectReferenceApplyConfiguration) *BasicAuthApplyConfiguration {
+func (b *BasicAuthApplyConfiguration) WithSecretRef(value *LocalObjectReferenceApplyConfiguration) *BasicAuthApplyConfiguration {
 	b.SecretRef = value
 	return b
 }

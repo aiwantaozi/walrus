@@ -104,7 +104,16 @@ func crd_pkg_apis_walruscore_v1_Catalog() *v1.CustomResourceDefinition {
 												"secretRef": {
 													Description: "SecretRef specifies the Secret containing authentication credentials for helm repository.\nFor HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
 													Type:        "object",
-													Nullable:    true,
+													Required: []string{
+														"name",
+													},
+													Properties: map[string]v1.JSONSchemaProps{
+														"name": {
+															Description: "Name of the object.",
+															Type:        "string",
+														},
+													},
+													Nullable: true,
 												},
 												"url": {
 													Description: "URL of the source address, a valid URL contains at least a protocol and host.",
@@ -123,6 +132,28 @@ func crd_pkg_apis_walruscore_v1_Catalog() *v1.CustomResourceDefinition {
 											Properties: map[string]v1.JSONSchemaProps{
 												"domain": {
 													Description: "Domain for OCI registry.",
+													Type:        "string",
+												},
+												"password": {
+													Description: "Password for OCI registry.",
+													Type:        "string",
+												},
+												"secretRef": {
+													Description: "SecretRef specifies the Secret containing authentication credentials for helm repository.\nFor HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
+													Type:        "object",
+													Required: []string{
+														"name",
+													},
+													Properties: map[string]v1.JSONSchemaProps{
+														"name": {
+															Description: "Name of the object.",
+															Type:        "string",
+														},
+													},
+													Nullable: true,
+												},
+												"username": {
+													Description: "Username for OCI registry.",
 													Type:        "string",
 												},
 											},
@@ -157,6 +188,9 @@ func crd_pkg_apis_walruscore_v1_Catalog() *v1.CustomResourceDefinition {
 												"secretRef": {
 													Description: "SecretRef specifies the Secret containing authentication credentials.\nFor HTTP/S bear token the secret must contain 'token' field.",
 													Type:        "object",
+													Required: []string{
+														"name",
+													},
 													Properties: map[string]v1.JSONSchemaProps{
 														"name": {
 															Description: "Name of the object.",
@@ -547,8 +581,30 @@ func crd_pkg_apis_walruscore_v1_Template() *v1.CustomResourceDefinition {
 												"url",
 											},
 											Properties: map[string]v1.JSONSchemaProps{
+												"password": {
+													Description: "Password for OCI registry.",
+													Type:        "string",
+												},
+												"secretRef": {
+													Description: "SecretRef specifies the Secret containing authentication credentials for helm repository.\nFor HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
+													Type:        "object",
+													Required: []string{
+														"name",
+													},
+													Properties: map[string]v1.JSONSchemaProps{
+														"name": {
+															Description: "Name of the object.",
+															Type:        "string",
+														},
+													},
+													Nullable: true,
+												},
 												"url": {
 													Description: "URL of download the template from chart tgz address, e.g. https://charts.bitnami.com/bitnami/phpbb-16.5.0.tgz.",
+													Type:        "string",
+												},
+												"username": {
+													Description: "Username for OCI registry.",
 													Type:        "string",
 												},
 											},
@@ -568,7 +624,16 @@ func crd_pkg_apis_walruscore_v1_Template() *v1.CustomResourceDefinition {
 												"secretRef": {
 													Description: "SecretRef specifies the Secret containing authentication credentials for helm repository.\nFor HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
 													Type:        "object",
-													Nullable:    true,
+													Required: []string{
+														"name",
+													},
+													Properties: map[string]v1.JSONSchemaProps{
+														"name": {
+															Description: "Name of the object.",
+															Type:        "string",
+														},
+													},
+													Nullable: true,
 												},
 												"url": {
 													Description: "URL of download the template from oci image with ref, e.g. oci://registry-1.docker.io/bitnamicharts/mysql?ref=10.1.0.",
@@ -595,6 +660,9 @@ func crd_pkg_apis_walruscore_v1_Template() *v1.CustomResourceDefinition {
 												"secretRef": {
 													Description: "SecretRef specifies the Secret containing authentication credentials.\nFor HTTP/S bear token the secret must contain 'token' field.",
 													Type:        "object",
+													Required: []string{
+														"name",
+													},
 													Properties: map[string]v1.JSONSchemaProps{
 														"name": {
 															Description: "Name of the object.",
@@ -694,17 +762,44 @@ func crd_pkg_apis_walruscore_v1_Template() *v1.CustomResourceDefinition {
 														"originalUISchemaRef": {
 															Description: "OriginalUISchema holds the original UI schema for the template version.",
 															Type:        "object",
-															Nullable:    true,
+															Required: []string{
+																"name",
+															},
+															Properties: map[string]v1.JSONSchemaProps{
+																"name": {
+																	Description: "Name of the object.",
+																	Type:        "string",
+																},
+															},
+															Nullable: true,
 														},
 														"schemaRef": {
 															Description: "Schema holds the schema for the template version.",
 															Type:        "object",
-															Nullable:    true,
+															Required: []string{
+																"name",
+															},
+															Properties: map[string]v1.JSONSchemaProps{
+																"name": {
+																	Description: "Name of the object.",
+																	Type:        "string",
+																},
+															},
+															Nullable: true,
 														},
 														"uiSchemaRef": {
 															Description: "UISchema holds the UI schema for the template version.",
 															Type:        "object",
-															Nullable:    true,
+															Required: []string{
+																"name",
+															},
+															Properties: map[string]v1.JSONSchemaProps{
+																"name": {
+																	Description: "Name of the object.",
+																	Type:        "string",
+																},
+															},
+															Nullable: true,
 														},
 														"url": {
 															Description: "URL of downloading the version.\nhost.",
