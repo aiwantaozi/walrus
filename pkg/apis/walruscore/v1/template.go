@@ -109,26 +109,11 @@ type TemplateVersion struct {
 	URL string `json:"url"`
 
 	// Schema holds the schema for the template version.
-	SchemaConfigmapRef *SchemaObjectReference `json:"schemaRef,omitempty"`
+	SchemaConfigmapRef *LocalObjectReference `json:"schemaRef,omitempty"`
 
 	// OriginalUISchema holds the original UI schema for the template version.
-	OriginalUISchemaRef *OriginalUISchemaObjectReference `json:"originalUISchemaRef,omitempty"`
+	OriginalUISchemaRef *LocalObjectReference `json:"originalUISchemaRef,omitempty"`
 
 	// UISchema holds the UI schema for the template version.
-	UISchemaRef *UISchemaObjectReference `json:"uiSchemaRef,omitempty"`
-}
-
-// TODO(michelia)
-type SchemaObjectReference struct {
-	LocalObjectReference `json:",inline"`
-}
-
-// TODO(michelia)
-type OriginalUISchemaObjectReference struct {
-	LocalObjectReference `json:",inline"`
-}
-
-// TODO(michelia)
-type UISchemaObjectReference struct {
-	LocalObjectReference `json:",inline"`
+	UISchemaRef *LocalObjectReference `json:"uiSchemaRef,omitempty"`
 }

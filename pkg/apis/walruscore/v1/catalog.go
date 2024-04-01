@@ -129,7 +129,7 @@ type BasicAuth struct {
 	// SecretRef specifies the Secret containing authentication credentials for helm repository.
 	// For HTTP/S basic auth the secret must contain 'username' and 'password' fields.
 	// +optional
-	SecretRef *BasicAuthObjectReference `json:"secretRef,omitempty"`
+	SecretRef *LocalObjectReference `json:"secretRef,omitempty"`
 }
 
 type TokenAuth struct {
@@ -140,20 +140,10 @@ type TokenAuth struct {
 	// SecretRef specifies the Secret containing authentication credentials.
 	// For HTTP/S bear token the secret must contain 'token' field.
 	// +optional
-	SecretRef *TokenObjectReference `json:"secretRef,omitempty"`
+	SecretRef *LocalObjectReference `json:"secretRef,omitempty"`
 }
 
-// TODO:(michelia)
 type LocalObjectReference struct {
 	// Name of the object.
 	Name string `json:"name"`
-}
-
-type TokenObjectReference struct {
-	LocalObjectReference `json:",inline"`
-}
-
-// TODO:(michelia)
-type BasicAuthObjectReference struct {
-	LocalObjectReference `json:",inline"`
 }
