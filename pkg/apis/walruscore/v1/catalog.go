@@ -20,51 +20,45 @@ type Catalog struct {
 
 var _ runtime.Object = (*Catalog)(nil)
 
+// CatalogSpec defines the desired state of Catalog.
 type CatalogSpec struct {
-}
-type CatalogStatus struct {
+	// TemplateFormat of the catalog.
+	// +required
+	TemplateFormat string `json:"templateFormat"`
+
+	// Description of the catalog.
+	// +optional
+	Description string `json:"description,omitempty"`
+
+	// Filtering specifies the filtering rules for the catalog.
+	// +optional
+	Filtering *Filtering `json:"filtering,omitempty"`
+
+	// VCSSource specifies the vcs source configure.
+	// +optional
+	VCSSource *VCSSource `json:"vcsSource,omitempty"`
+
+	// HelmRepositorySource specifies the helm repository configure.
+	// +optional
+	HelmRepositorySource *HelmRepositorySource `json:"helmRepositorySource,omitempty"`
+
+	// OCIRegistrySource specifies the OCI registry configure.
+	// +optional
+	OCIRegistrySource *OCIRegistrySource `json:"ociRegistrySource,omitempty"`
 }
 
-//// CatalogSpec defines the desired state of Catalog.
-//type CatalogSpec struct {
-//	// TemplateFormat of the catalog.
-//	// +required
-//	TemplateFormat string `json:"templateFormat"`
-//
-//	// Description of the catalog.
-//	// +optional
-//	Description string `json:"description,omitempty"`
-//
-//	// Filtering specifies the filtering rules for the catalog.
-//	// +optional
-//	Filtering *Filtering `json:"filtering,omitempty"`
-//
-//	// VCSSource specifies the vcs source configure.
-//	// +optional
-//	VCSSource *VCSSource `json:"vcsSource,omitempty"`
-//
-//	// HelmRepositorySource specifies the helm repository configure.
-//	// +optional
-//	HelmRepositorySource *HelmRepositorySource `json:"helmRepositorySource,omitempty"`
-//
-//	// OCIRegistrySource specifies the OCI registry configure.
-//	// +optional
-//	OCIRegistrySource *OCIRegistrySource `json:"ociRegistrySource,omitempty"`
-//}
-//
-//// CatalogStatus defines the observed state of Catalog.
-//type CatalogStatus struct {
-//	// LastSyncTime record the last auto/manual sync catalog time.
-//	LastSyncTime meta.Time `json:"lastSyncTime"`
-//
-//	// TemplateCount include template count.
-//	TemplateCount int `json:"templateCount"`
-//
-//	// Conditions holds the conditions for the catalog.
-//	// +optional
-//	Conditions []meta.Condition `json:"conditions,omitempty"`
-//}
-//
+// CatalogStatus defines the observed state of Catalog.
+type CatalogStatus struct {
+	// LastSyncTime record the last auto/manual sync catalog time.
+	LastSyncTime meta.Time `json:"lastSyncTime"`
+
+	// TemplateCount include template count.
+	TemplateCount int64 `json:"templateCount"`
+
+	// Conditions holds the conditions for the catalog.
+	// +optional
+	Conditions []meta.Condition `json:"conditions,omitempty"`
+}
 
 // CatalogList holds the list of Catalog.
 //
@@ -135,7 +129,7 @@ type BasicAuth struct {
 	// SecretRef specifies the Secret containing authentication credentials for helm repository.
 	// For HTTP/S basic auth the secret must contain 'username' and 'password' fields.
 	// +optional
-	SecretRef *ObjectReference `json:"authSecretRef,omitempty"`
+	SecretRef *BasicAuthObjectReference `json:"secretRef,omitempty"`
 }
 
 type TokenAuth struct {
@@ -146,5 +140,20 @@ type TokenAuth struct {
 	// SecretRef specifies the Secret containing authentication credentials.
 	// For HTTP/S bear token the secret must contain 'token' field.
 	// +optional
-	SecretRef *ObjectReference `json:"authSecretRef,omitempty"`
+	SecretRef *TokenObjectReference `json:"secretRef,omitempty"`
+}
+
+// TODO:(michelia)
+type LocalObjectReference struct {
+	// Name of the object.
+	Name string `json:"name"`
+}
+
+type TokenObjectReference struct {
+	LocalObjectReference `json:",inline"`
+}
+
+// TODO:(michelia)
+type BasicAuthObjectReference struct {
+	LocalObjectReference `json:",inline"`
 }

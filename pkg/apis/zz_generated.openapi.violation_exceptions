@@ -1,3 +1,7 @@
+API rule violation: list_type_missing,github.com/seal-io/walrus/pkg/apis/walrus/v1,SchemaStatus,Conditions
+API rule violation: list_type_missing,github.com/seal-io/walrus/pkg/apis/walruscore/v1,CatalogStatus,Conditions
+API rule violation: list_type_missing,github.com/seal-io/walrus/pkg/apis/walruscore/v1,TemplateStatus,Conditions
+API rule violation: list_type_missing,github.com/seal-io/walrus/pkg/apis/walruscore/v1,TemplateStatus,Versions
 API rule violation: list_type_missing,k8s.io/apimachinery/pkg/apis/meta/v1,APIGroup,ServerAddressByClientCIDRs
 API rule violation: list_type_missing,k8s.io/apimachinery/pkg/apis/meta/v1,APIGroup,Versions
 API rule violation: list_type_missing,k8s.io/apimachinery/pkg/apis/meta/v1,APIGroupList,Groups
@@ -22,6 +26,7 @@ API rule violation: list_type_missing,k8s.io/apimachinery/pkg/apis/meta/v1,Table
 API rule violation: list_type_missing,k8s.io/apimachinery/pkg/apis/meta/v1,TableRow,Cells
 API rule violation: list_type_missing,k8s.io/apimachinery/pkg/apis/meta/v1,TableRow,Conditions
 API rule violation: list_type_missing,k8s.io/apimachinery/pkg/apis/meta/v1,UpdateOptions,DryRun
+API rule violation: names_match,github.com/seal-io/walrus/pkg/apis/walruscore/v1,TemplateVersion,SchemaConfigmapRef
 API rule violation: names_match,k8s.io/apimachinery/pkg/api/resource,Quantity,Format
 API rule violation: names_match,k8s.io/apimachinery/pkg/api/resource,Quantity,d
 API rule violation: names_match,k8s.io/apimachinery/pkg/api/resource,Quantity,i

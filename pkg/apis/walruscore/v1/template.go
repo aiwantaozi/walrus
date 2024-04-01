@@ -20,49 +20,43 @@ type Template struct {
 
 var _ runtime.Object = (*Template)(nil)
 
+// TemplateSpec defines the desired state of Template.
 type TemplateSpec struct {
-}
+	// TemplateFormat of the content.
+	// +required
+	TemplateFormat string `json:"templateFormat"`
 
-type TemplateStatus struct {
-}
+	// Description of the template.
+	// +optional
+	Description string `json:"description,omitempty"`
 
-//// TemplateSpec defines the desired state of Template.
-//type TemplateSpec struct {
-//	// TemplateFormat of the content.
-//	// +required
-//	TemplateFormat string `json:"templateFormat"`
-//
-//	// Description of the template.
-//	// +optional
-//	Description string `json:"description,omitempty"`
-//
-//	// VCSRepository specifies the vcs repository configure.
-//	// +optional
-//	VCSRepository *VCSRepository `json:"vcsRepository,omitempty"`
-//
-//	// HelmOCIChart specifies the OCI format helm chart configure.
-//	// +optional
-//	HelmOCIChart *HelmOCIChart `json:"helmOCIChart,omitempty"`
-//
-//	// HelmChart specifies the tgz format helm chart configure.
-//	// +optional
-//	HelmChart *HelmChart `json:"helmChart,omitempty"`
-//}
+	// VCSRepository specifies the vcs repository configure.
+	// +optional
+	VCSRepository *VCSRepository `json:"vcsRepository,omitempty"`
+
+	// HelmOCIChart specifies the OCI format helm chart configure.
+	// +optional
+	HelmOCIChart *HelmOCIChart `json:"helmOCIChart,omitempty"`
+
+	// HelmChart specifies the tgz format helm chart configure.
+	// +optional
+	HelmChart *HelmChart `json:"helmChart,omitempty"`
+}
 
 // TemplateStatus defines the observed state of Template.
-//type TemplateStatus struct {
-//	// The original name of the template, name generate from chart.yaml, terraform git repo name.
-//	OriginalName string `json:"originalName,omitempty"`
-//
-//	// A URL to an SVG or PNG image to be used as an icon.
-//	Icon string `json:"icon,omitempty"`
-//
-//	// Versions holds the versions for the template.
-//	Versions []TemplateVersion `json:"versions,omitempty"`
-//
-//	// Conditions holds the conditions for the template.
-//	Conditions []meta.Condition `json:"conditions,omitempty"`
-//}
+type TemplateStatus struct {
+	// The original name of the template, name generate from chart.yaml, terraform git repo name.
+	OriginalName string `json:"originalName,omitempty"`
+
+	// A URL to an SVG or PNG image to be used as an icon.
+	Icon string `json:"icon,omitempty"`
+
+	// Versions holds the versions for the template.
+	Versions []TemplateVersion `json:"versions,omitempty"`
+
+	// Conditions holds the conditions for the template.
+	Conditions []meta.Condition `json:"conditions,omitempty"`
+}
 
 // TemplateList holds the list of Template.
 //
@@ -115,11 +109,26 @@ type TemplateVersion struct {
 	URL string `json:"url"`
 
 	// Schema holds the schema for the template version.
-	Schema *ObjectReference `json:"schema,omitempty"`
+	SchemaConfigmapRef *SchemaObjectReference `json:"schemaRef,omitempty"`
 
 	// OriginalUISchema holds the original UI schema for the template version.
-	OriginalUISchema *ObjectReference `json:"originalUISchema,omitempty"`
+	OriginalUISchemaRef *OriginalUISchemaObjectReference `json:"originalUISchemaRef,omitempty"`
 
 	// UISchema holds the UI schema for the template version.
-	UISchema *ObjectReference `json:"uiSchema,omitempty"`
+	UISchemaRef *UISchemaObjectReference `json:"uiSchemaRef,omitempty"`
+}
+
+// TODO(michelia)
+type SchemaObjectReference struct {
+	LocalObjectReference `json:",inline"`
+}
+
+// TODO(michelia)
+type OriginalUISchemaObjectReference struct {
+	LocalObjectReference `json:",inline"`
+}
+
+// TODO(michelia)
+type UISchemaObjectReference struct {
+	LocalObjectReference `json:",inline"`
 }

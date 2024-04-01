@@ -5,13 +5,14 @@ import (
 	"fmt"
 
 	"github.com/davecgh/go-spew/spew"
+	"k8s.io/apiserver/pkg/registry/rest"
+	genericapiserver "k8s.io/apiserver/pkg/server"
+	ctrl "sigs.k8s.io/controller-runtime"
+
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 	"k8s.io/apimachinery/pkg/util/sets"
-	"k8s.io/apiserver/pkg/registry/rest"
-	genericapiserver "k8s.io/apiserver/pkg/server"
-	ctrl "sigs.k8s.io/controller-runtime"
 
 	"github.com/seal-io/walrus/pkg/extensionapi"
 	"github.com/seal-io/walrus/pkg/extensionapis/walrus"
@@ -30,6 +31,7 @@ var setupers = []extensionapi.Setup{
 	new(walrus.SettingHandler),
 	new(walrus.TemplateHandler),
 	new(walrus.VariableHandler),
+	new(walrus.SchemaHandler),
 }
 
 type _APIOptions struct {

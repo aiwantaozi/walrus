@@ -17,6 +17,26 @@ import "k8s.io/apimachinery/pkg/runtime/schema/generated.proto";
 // Package-wide variables from generator "generated".
 option go_package = "github.com/seal-io/walrus/pkg/apis/walruscore/v1";
 
+message BasicAuth {
+  // Username for OCI registry.
+  // +optional
+  optional string username = 1;
+
+  // Password for OCI registry.
+  // +optional
+  optional string password = 2;
+
+  // SecretRef specifies the Secret containing authentication credentials for helm repository.
+  // For HTTP/S basic auth the secret must contain 'username' and 'password' fields.
+  // +optional
+  optional BasicAuthObjectReference secretRef = 3;
+}
+
+// TODO:(michelia)
+message BasicAuthObjectReference {
+  optional LocalObjectReference localObjectReference = 1;
+}
+
 // Catalog is the schema for the catalogs API.
 //
 // +genclient
@@ -41,10 +61,42 @@ message CatalogList {
 
 // CatalogSpec defines the desired state of Catalog.
 message CatalogSpec {
+  // TemplateFormat of the catalog.
+  // +required
+  optional string templateFormat = 1;
+
+  // Description of the catalog.
+  // +optional
+  optional string description = 2;
+
+  // Filtering specifies the filtering rules for the catalog.
+  // +optional
+  optional Filtering filtering = 3;
+
+  // VCSSource specifies the vcs source configure.
+  // +optional
+  optional VCSSource vcsSource = 4;
+
+  // HelmRepositorySource specifies the helm repository configure.
+  // +optional
+  optional HelmRepositorySource helmRepositorySource = 5;
+
+  // OCIRegistrySource specifies the OCI registry configure.
+  // +optional
+  optional OCIRegistrySource ociRegistrySource = 6;
 }
 
 // CatalogStatus defines the observed state of Catalog.
 message CatalogStatus {
+  // LastSyncTime record the last auto/manual sync catalog time.
+  optional k8s.io.apimachinery.pkg.apis.meta.v1.Time lastSyncTime = 1;
+
+  // TemplateCount include template count.
+  optional int64 templateCount = 2;
+
+  // Conditions holds the conditions for the catalog.
+  // +optional
+  repeated k8s.io.apimachinery.pkg.apis.meta.v1.Condition conditions = 3;
 }
 
 // Connector is the schema for the connectors API.
@@ -75,6 +127,68 @@ message ConnectorSpec {
 
 // ConnectorStatus defines the observed state of Connector.
 message ConnectorStatus {
+}
+
+// Filtering specifies the filtering rules for the catalog's template.
+message Filtering {
+  // IncludeFilter specifies the regular expression for matching the include template name.
+  // +optional
+  optional string includeFilter = 1;
+
+  // ExcludeFilter specifies the regular expression for matching the exclude template name.
+  // +optional
+  optional string excludeFilter = 2;
+}
+
+// HelmChart specifies the tgz format helm chart configure.
+message HelmChart {
+  // BasicAuth containing authentication credentials for helm chart.
+  optional BasicAuth basicAuth = 1;
+
+  // URL of download the template from chart tgz address, e.g. https://charts.bitnami.com/bitnami/phpbb-16.5.0.tgz.
+  // +required
+  optional string url = 2;
+}
+
+// HelmOCIChart specifies the OCI format helm chart configure.
+message HelmOCIChart {
+  // BasicAuth containing authentication credentials for oci chart.
+  optional BasicAuth basicAuth = 1;
+
+  // URL of download the template from oci image with ref, e.g. oci://registry-1.docker.io/bitnamicharts/mysql?ref=10.1.0.
+  // +required
+  optional string url = 2;
+}
+
+// HelmRepositorySource specifies the helm repository configure.
+message HelmRepositorySource {
+  // BasicAuth containing authentication credentials for helm repository.
+  optional BasicAuth basicAuth = 1;
+
+  // URL of the source address, a valid URL contains at least a protocol and host.
+  // +required
+  optional string url = 2;
+}
+
+// TODO:(michelia)
+message LocalObjectReference {
+  // Name of the object.
+  optional string name = 1;
+}
+
+// OCIRegistrySource specifies the OCI registry configure.
+message OCIRegistrySource {
+  // BasicAuth containing authentication credentials for OCI registry.
+  optional BasicAuth basicAuth = 1;
+
+  // Domain for OCI registry.
+  // +optional
+  optional string domain = 2;
+}
+
+// TODO(michelia)
+message OriginalUISchemaObjectReference {
+  optional LocalObjectReference localObjectReference = 1;
 }
 
 // Resource is the schema for the resources API.
@@ -167,6 +281,11 @@ message ResourceSpec {
 message ResourceStatus {
 }
 
+// TODO(michelia)
+message SchemaObjectReference {
+  optional LocalObjectReference localObjectReference = 1;
+}
+
 // Template is the schema for the templates API.
 //
 // +genclient
@@ -191,9 +310,101 @@ message TemplateList {
 
 // TemplateSpec defines the desired state of Template.
 message TemplateSpec {
+  // TemplateFormat of the content.
+  // +required
+  optional string templateFormat = 1;
+
+  // Description of the template.
+  // +optional
+  optional string description = 2;
+
+  // VCSRepository specifies the vcs repository configure.
+  // +optional
+  optional VCSRepository vcsRepository = 3;
+
+  // HelmOCIChart specifies the OCI format helm chart configure.
+  // +optional
+  optional HelmOCIChart helmOCIChart = 4;
+
+  // HelmChart specifies the tgz format helm chart configure.
+  // +optional
+  optional HelmChart helmChart = 5;
 }
 
 // TemplateStatus defines the observed state of Template.
 message TemplateStatus {
+  // The original name of the template, name generate from chart.yaml, terraform git repo name.
+  optional string originalName = 1;
+
+  // A URL to an SVG or PNG image to be used as an icon.
+  optional string icon = 2;
+
+  // Versions holds the versions for the template.
+  repeated TemplateVersion versions = 3;
+
+  // Conditions holds the conditions for the template.
+  repeated k8s.io.apimachinery.pkg.apis.meta.v1.Condition conditions = 4;
+}
+
+// TemplateVersion defines the version of Template.
+message TemplateVersion {
+  optional string version = 1;
+
+  // URL of downloading the version.
+  // host.
+  // +required
+  optional string url = 2;
+
+  // Schema holds the schema for the template version.
+  optional SchemaObjectReference schemaRef = 3;
+
+  // OriginalUISchema holds the original UI schema for the template version.
+  optional OriginalUISchemaObjectReference originalUISchemaRef = 4;
+
+  // UISchema holds the UI schema for the template version.
+  optional UISchemaObjectReference uiSchemaRef = 5;
+}
+
+message TokenAuth {
+  // Token for HTTP/S bear token.
+  // +optional
+  optional string token = 1;
+
+  // SecretRef specifies the Secret containing authentication credentials.
+  // For HTTP/S bear token the secret must contain 'token' field.
+  // +optional
+  optional TokenObjectReference secretRef = 2;
+}
+
+message TokenObjectReference {
+  optional LocalObjectReference localObjectReference = 1;
+}
+
+// TODO(michelia)
+message UISchemaObjectReference {
+  optional LocalObjectReference localObjectReference = 1;
+}
+
+// VCSRepository specifies the vcs repository of the template.
+message VCSRepository {
+  optional TokenAuth tokenAuth = 1;
+
+  // URL of download the template from vsc repository with ref and subpath, e.g. https://github.com/walrus-catalog/terraform-static-redis?ref=main.
+  // +required
+  optional string url = 2;
+}
+
+// VCSSource specifies the vcs source configure.
+message VCSSource {
+  // TokenAuth containing authentication credentials for vcs source.
+  optional TokenAuth tokenAuth = 1;
+
+  // +k8s:validation:enum=["github","gitlab","gitee"]
+  // +required
+  optional string platform = 2;
+
+  // URL of the source address, a valid URL contains at least a protocol and host.
+  // +required
+  optional string url = 3;
 }
 

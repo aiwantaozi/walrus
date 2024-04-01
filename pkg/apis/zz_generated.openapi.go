@@ -19,119 +19,139 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Catalog":                      schema_pkg_apis_walrus_v1_Catalog(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.CatalogList":                  schema_pkg_apis_walrus_v1_CatalogList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Connector":                    schema_pkg_apis_walrus_v1_Connector(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ConnectorList":                schema_pkg_apis_walrus_v1_ConnectorList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Environment":                  schema_pkg_apis_walrus_v1_Environment(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.EnvironmentList":              schema_pkg_apis_walrus_v1_EnvironmentList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.EnvironmentSpec":              schema_pkg_apis_walrus_v1_EnvironmentSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.EnvironmentStatus":            schema_pkg_apis_walrus_v1_EnvironmentStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.FileExample":                  schema_pkg_apis_walrus_v1_FileExample(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.FileExampleList":              schema_pkg_apis_walrus_v1_FileExampleList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.FileExampleStatus":            schema_pkg_apis_walrus_v1_FileExampleStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Project":                      schema_pkg_apis_walrus_v1_Project(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectList":                  schema_pkg_apis_walrus_v1_ProjectList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectSpec":                  schema_pkg_apis_walrus_v1_ProjectSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectStatus":                schema_pkg_apis_walrus_v1_ProjectStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectSubject":               schema_pkg_apis_walrus_v1_ProjectSubject(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectSubjects":              schema_pkg_apis_walrus_v1_ProjectSubjects(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Resource":                     schema_pkg_apis_walrus_v1_Resource(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceComponent":            schema_pkg_apis_walrus_v1_ResourceComponent(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceComponents":           schema_pkg_apis_walrus_v1_ResourceComponents(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceDefinition":           schema_pkg_apis_walrus_v1_ResourceDefinition(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceDefinitionList":       schema_pkg_apis_walrus_v1_ResourceDefinitionList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceList":                 schema_pkg_apis_walrus_v1_ResourceList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceRun":                  schema_pkg_apis_walrus_v1_ResourceRun(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceRunList":              schema_pkg_apis_walrus_v1_ResourceRunList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Setting":                      schema_pkg_apis_walrus_v1_Setting(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SettingList":                  schema_pkg_apis_walrus_v1_SettingList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SettingSpec":                  schema_pkg_apis_walrus_v1_SettingSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SettingStatus":                schema_pkg_apis_walrus_v1_SettingStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Template":                     schema_pkg_apis_walrus_v1_Template(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.TemplateList":                 schema_pkg_apis_walrus_v1_TemplateList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Variable":                     schema_pkg_apis_walrus_v1_Variable(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.VariableList":                 schema_pkg_apis_walrus_v1_VariableList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.VariableSpec":                 schema_pkg_apis_walrus_v1_VariableSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walrus/v1.VariableStatus":               schema_pkg_apis_walrus_v1_VariableStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Catalog":                  schema_pkg_apis_walruscore_v1_Catalog(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.CatalogList":              schema_pkg_apis_walruscore_v1_CatalogList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.CatalogSpec":              schema_pkg_apis_walruscore_v1_CatalogSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.CatalogStatus":            schema_pkg_apis_walruscore_v1_CatalogStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Connector":                schema_pkg_apis_walruscore_v1_Connector(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ConnectorList":            schema_pkg_apis_walruscore_v1_ConnectorList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ConnectorSpec":            schema_pkg_apis_walruscore_v1_ConnectorSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ConnectorStatus":          schema_pkg_apis_walruscore_v1_ConnectorStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Resource":                 schema_pkg_apis_walruscore_v1_Resource(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinition":       schema_pkg_apis_walruscore_v1_ResourceDefinition(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinitionList":   schema_pkg_apis_walruscore_v1_ResourceDefinitionList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinitionSpec":   schema_pkg_apis_walruscore_v1_ResourceDefinitionSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinitionStatus": schema_pkg_apis_walruscore_v1_ResourceDefinitionStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceList":             schema_pkg_apis_walruscore_v1_ResourceList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRun":              schema_pkg_apis_walruscore_v1_ResourceRun(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRunList":          schema_pkg_apis_walruscore_v1_ResourceRunList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRunSpec":          schema_pkg_apis_walruscore_v1_ResourceRunSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRunStatus":        schema_pkg_apis_walruscore_v1_ResourceRunStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceSpec":             schema_pkg_apis_walruscore_v1_ResourceSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceStatus":           schema_pkg_apis_walruscore_v1_ResourceStatus(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Template":                 schema_pkg_apis_walruscore_v1_Template(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateList":             schema_pkg_apis_walruscore_v1_TemplateList(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateSpec":             schema_pkg_apis_walruscore_v1_TemplateSpec(ref),
-		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateStatus":           schema_pkg_apis_walruscore_v1_TemplateStatus(ref),
-		"k8s.io/apimachinery/pkg/api/resource.Quantity":                             schema_apimachinery_pkg_api_resource_Quantity(ref),
-		"k8s.io/apimachinery/pkg/api/resource.int64Amount":                          schema_apimachinery_pkg_api_resource_int64Amount(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroup":                             schema_pkg_apis_meta_v1_APIGroup(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroupList":                         schema_pkg_apis_meta_v1_APIGroupList(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.APIResource":                          schema_pkg_apis_meta_v1_APIResource(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.APIResourceList":                      schema_pkg_apis_meta_v1_APIResourceList(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.APIVersions":                          schema_pkg_apis_meta_v1_APIVersions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.ApplyOptions":                         schema_pkg_apis_meta_v1_ApplyOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Condition":                            schema_pkg_apis_meta_v1_Condition(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.CreateOptions":                        schema_pkg_apis_meta_v1_CreateOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.DeleteOptions":                        schema_pkg_apis_meta_v1_DeleteOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Duration":                             schema_pkg_apis_meta_v1_Duration(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.FieldsV1":                             schema_pkg_apis_meta_v1_FieldsV1(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.GetOptions":                           schema_pkg_apis_meta_v1_GetOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind":                            schema_pkg_apis_meta_v1_GroupKind(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupResource":                        schema_pkg_apis_meta_v1_GroupResource(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion":                         schema_pkg_apis_meta_v1_GroupVersion(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionForDiscovery":             schema_pkg_apis_meta_v1_GroupVersionForDiscovery(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind":                     schema_pkg_apis_meta_v1_GroupVersionKind(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionResource":                 schema_pkg_apis_meta_v1_GroupVersionResource(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.InternalEvent":                        schema_pkg_apis_meta_v1_InternalEvent(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector":                        schema_pkg_apis_meta_v1_LabelSelector(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelectorRequirement":             schema_pkg_apis_meta_v1_LabelSelectorRequirement(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.List":                                 schema_pkg_apis_meta_v1_List(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta":                             schema_pkg_apis_meta_v1_ListMeta(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.ListOptions":                          schema_pkg_apis_meta_v1_ListOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.ManagedFieldsEntry":                   schema_pkg_apis_meta_v1_ManagedFieldsEntry(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.MicroTime":                            schema_pkg_apis_meta_v1_MicroTime(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta":                           schema_pkg_apis_meta_v1_ObjectMeta(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.OwnerReference":                       schema_pkg_apis_meta_v1_OwnerReference(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadata":                schema_pkg_apis_meta_v1_PartialObjectMetadata(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadataList":            schema_pkg_apis_meta_v1_PartialObjectMetadataList(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Patch":                                schema_pkg_apis_meta_v1_Patch(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.PatchOptions":                         schema_pkg_apis_meta_v1_PatchOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Preconditions":                        schema_pkg_apis_meta_v1_Preconditions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.RootPaths":                            schema_pkg_apis_meta_v1_RootPaths(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.ServerAddressByClientCIDR":            schema_pkg_apis_meta_v1_ServerAddressByClientCIDR(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Status":                               schema_pkg_apis_meta_v1_Status(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.StatusCause":                          schema_pkg_apis_meta_v1_StatusCause(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.StatusDetails":                        schema_pkg_apis_meta_v1_StatusDetails(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Table":                                schema_pkg_apis_meta_v1_Table(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.TableColumnDefinition":                schema_pkg_apis_meta_v1_TableColumnDefinition(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.TableOptions":                         schema_pkg_apis_meta_v1_TableOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.TableRow":                             schema_pkg_apis_meta_v1_TableRow(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.TableRowCondition":                    schema_pkg_apis_meta_v1_TableRowCondition(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Time":                                 schema_pkg_apis_meta_v1_Time(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.Timestamp":                            schema_pkg_apis_meta_v1_Timestamp(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta":                             schema_pkg_apis_meta_v1_TypeMeta(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.UpdateOptions":                        schema_pkg_apis_meta_v1_UpdateOptions(ref),
-		"k8s.io/apimachinery/pkg/apis/meta/v1.WatchEvent":                           schema_pkg_apis_meta_v1_WatchEvent(ref),
-		"k8s.io/apimachinery/pkg/runtime.RawExtension":                              schema_k8sio_apimachinery_pkg_runtime_RawExtension(ref),
-		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                                  schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
-		"k8s.io/apimachinery/pkg/runtime.Unknown":                                   schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
-		"k8s.io/apimachinery/pkg/version.Info":                                      schema_k8sio_apimachinery_pkg_version_Info(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Catalog":                             schema_pkg_apis_walrus_v1_Catalog(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.CatalogList":                         schema_pkg_apis_walrus_v1_CatalogList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Connector":                           schema_pkg_apis_walrus_v1_Connector(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ConnectorList":                       schema_pkg_apis_walrus_v1_ConnectorList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Environment":                         schema_pkg_apis_walrus_v1_Environment(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.EnvironmentList":                     schema_pkg_apis_walrus_v1_EnvironmentList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.EnvironmentSpec":                     schema_pkg_apis_walrus_v1_EnvironmentSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.EnvironmentStatus":                   schema_pkg_apis_walrus_v1_EnvironmentStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.FileExample":                         schema_pkg_apis_walrus_v1_FileExample(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.FileExampleList":                     schema_pkg_apis_walrus_v1_FileExampleList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.FileExampleStatus":                   schema_pkg_apis_walrus_v1_FileExampleStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Project":                             schema_pkg_apis_walrus_v1_Project(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectList":                         schema_pkg_apis_walrus_v1_ProjectList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectSpec":                         schema_pkg_apis_walrus_v1_ProjectSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectStatus":                       schema_pkg_apis_walrus_v1_ProjectStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectSubject":                      schema_pkg_apis_walrus_v1_ProjectSubject(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ProjectSubjects":                     schema_pkg_apis_walrus_v1_ProjectSubjects(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Resource":                            schema_pkg_apis_walrus_v1_Resource(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceComponent":                   schema_pkg_apis_walrus_v1_ResourceComponent(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceComponents":                  schema_pkg_apis_walrus_v1_ResourceComponents(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceDefinition":                  schema_pkg_apis_walrus_v1_ResourceDefinition(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceDefinitionList":              schema_pkg_apis_walrus_v1_ResourceDefinitionList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceList":                        schema_pkg_apis_walrus_v1_ResourceList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceRun":                         schema_pkg_apis_walrus_v1_ResourceRun(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.ResourceRunList":                     schema_pkg_apis_walrus_v1_ResourceRunList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Schema":                              schema_pkg_apis_walrus_v1_Schema(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SchemaList":                          schema_pkg_apis_walrus_v1_SchemaList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SchemaSpec":                          schema_pkg_apis_walrus_v1_SchemaSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SchemaStatus":                        schema_pkg_apis_walrus_v1_SchemaStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Setting":                             schema_pkg_apis_walrus_v1_Setting(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SettingList":                         schema_pkg_apis_walrus_v1_SettingList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SettingSpec":                         schema_pkg_apis_walrus_v1_SettingSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.SettingStatus":                       schema_pkg_apis_walrus_v1_SettingStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Template":                            schema_pkg_apis_walrus_v1_Template(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.TemplateList":                        schema_pkg_apis_walrus_v1_TemplateList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.Variable":                            schema_pkg_apis_walrus_v1_Variable(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.VariableList":                        schema_pkg_apis_walrus_v1_VariableList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.VariableSpec":                        schema_pkg_apis_walrus_v1_VariableSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrus/v1.VariableStatus":                      schema_pkg_apis_walrus_v1_VariableStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuth":                       schema_pkg_apis_walruscore_v1_BasicAuth(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference":        schema_pkg_apis_walruscore_v1_BasicAuthObjectReference(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Catalog":                         schema_pkg_apis_walruscore_v1_Catalog(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.CatalogList":                     schema_pkg_apis_walruscore_v1_CatalogList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.CatalogSpec":                     schema_pkg_apis_walruscore_v1_CatalogSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.CatalogStatus":                   schema_pkg_apis_walruscore_v1_CatalogStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Connector":                       schema_pkg_apis_walruscore_v1_Connector(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ConnectorList":                   schema_pkg_apis_walruscore_v1_ConnectorList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ConnectorSpec":                   schema_pkg_apis_walruscore_v1_ConnectorSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ConnectorStatus":                 schema_pkg_apis_walruscore_v1_ConnectorStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Filtering":                       schema_pkg_apis_walruscore_v1_Filtering(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmChart":                       schema_pkg_apis_walruscore_v1_HelmChart(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmOCIChart":                    schema_pkg_apis_walruscore_v1_HelmOCIChart(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmRepositorySource":            schema_pkg_apis_walruscore_v1_HelmRepositorySource(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.LocalObjectReference":            schema_pkg_apis_walruscore_v1_LocalObjectReference(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.OCIRegistrySource":               schema_pkg_apis_walruscore_v1_OCIRegistrySource(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.OriginalUISchemaObjectReference": schema_pkg_apis_walruscore_v1_OriginalUISchemaObjectReference(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Resource":                        schema_pkg_apis_walruscore_v1_Resource(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinition":              schema_pkg_apis_walruscore_v1_ResourceDefinition(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinitionList":          schema_pkg_apis_walruscore_v1_ResourceDefinitionList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinitionSpec":          schema_pkg_apis_walruscore_v1_ResourceDefinitionSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceDefinitionStatus":        schema_pkg_apis_walruscore_v1_ResourceDefinitionStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceList":                    schema_pkg_apis_walruscore_v1_ResourceList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRun":                     schema_pkg_apis_walruscore_v1_ResourceRun(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRunList":                 schema_pkg_apis_walruscore_v1_ResourceRunList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRunSpec":                 schema_pkg_apis_walruscore_v1_ResourceRunSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceRunStatus":               schema_pkg_apis_walruscore_v1_ResourceRunStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceSpec":                    schema_pkg_apis_walruscore_v1_ResourceSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.ResourceStatus":                  schema_pkg_apis_walruscore_v1_ResourceStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.SchemaObjectReference":           schema_pkg_apis_walruscore_v1_SchemaObjectReference(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Template":                        schema_pkg_apis_walruscore_v1_Template(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateList":                    schema_pkg_apis_walruscore_v1_TemplateList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateSpec":                    schema_pkg_apis_walruscore_v1_TemplateSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateStatus":                  schema_pkg_apis_walruscore_v1_TemplateStatus(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateVersion":                 schema_pkg_apis_walruscore_v1_TemplateVersion(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenAuth":                       schema_pkg_apis_walruscore_v1_TokenAuth(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenObjectReference":            schema_pkg_apis_walruscore_v1_TokenObjectReference(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.UISchemaObjectReference":         schema_pkg_apis_walruscore_v1_UISchemaObjectReference(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSRepository":                   schema_pkg_apis_walruscore_v1_VCSRepository(ref),
+		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSSource":                       schema_pkg_apis_walruscore_v1_VCSSource(ref),
+		"k8s.io/apimachinery/pkg/api/resource.Quantity":                                    schema_apimachinery_pkg_api_resource_Quantity(ref),
+		"k8s.io/apimachinery/pkg/api/resource.int64Amount":                                 schema_apimachinery_pkg_api_resource_int64Amount(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroup":                                    schema_pkg_apis_meta_v1_APIGroup(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroupList":                                schema_pkg_apis_meta_v1_APIGroupList(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIResource":                                 schema_pkg_apis_meta_v1_APIResource(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIResourceList":                             schema_pkg_apis_meta_v1_APIResourceList(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIVersions":                                 schema_pkg_apis_meta_v1_APIVersions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ApplyOptions":                                schema_pkg_apis_meta_v1_ApplyOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Condition":                                   schema_pkg_apis_meta_v1_Condition(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.CreateOptions":                               schema_pkg_apis_meta_v1_CreateOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.DeleteOptions":                               schema_pkg_apis_meta_v1_DeleteOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Duration":                                    schema_pkg_apis_meta_v1_Duration(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.FieldsV1":                                    schema_pkg_apis_meta_v1_FieldsV1(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GetOptions":                                  schema_pkg_apis_meta_v1_GetOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind":                                   schema_pkg_apis_meta_v1_GroupKind(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupResource":                               schema_pkg_apis_meta_v1_GroupResource(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion":                                schema_pkg_apis_meta_v1_GroupVersion(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionForDiscovery":                    schema_pkg_apis_meta_v1_GroupVersionForDiscovery(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind":                            schema_pkg_apis_meta_v1_GroupVersionKind(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionResource":                        schema_pkg_apis_meta_v1_GroupVersionResource(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.InternalEvent":                               schema_pkg_apis_meta_v1_InternalEvent(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector":                               schema_pkg_apis_meta_v1_LabelSelector(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelectorRequirement":                    schema_pkg_apis_meta_v1_LabelSelectorRequirement(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.List":                                        schema_pkg_apis_meta_v1_List(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta":                                    schema_pkg_apis_meta_v1_ListMeta(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ListOptions":                                 schema_pkg_apis_meta_v1_ListOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ManagedFieldsEntry":                          schema_pkg_apis_meta_v1_ManagedFieldsEntry(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.MicroTime":                                   schema_pkg_apis_meta_v1_MicroTime(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta":                                  schema_pkg_apis_meta_v1_ObjectMeta(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.OwnerReference":                              schema_pkg_apis_meta_v1_OwnerReference(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadata":                       schema_pkg_apis_meta_v1_PartialObjectMetadata(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadataList":                   schema_pkg_apis_meta_v1_PartialObjectMetadataList(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Patch":                                       schema_pkg_apis_meta_v1_Patch(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.PatchOptions":                                schema_pkg_apis_meta_v1_PatchOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Preconditions":                               schema_pkg_apis_meta_v1_Preconditions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.RootPaths":                                   schema_pkg_apis_meta_v1_RootPaths(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ServerAddressByClientCIDR":                   schema_pkg_apis_meta_v1_ServerAddressByClientCIDR(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Status":                                      schema_pkg_apis_meta_v1_Status(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.StatusCause":                                 schema_pkg_apis_meta_v1_StatusCause(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.StatusDetails":                               schema_pkg_apis_meta_v1_StatusDetails(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Table":                                       schema_pkg_apis_meta_v1_Table(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableColumnDefinition":                       schema_pkg_apis_meta_v1_TableColumnDefinition(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableOptions":                                schema_pkg_apis_meta_v1_TableOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableRow":                                    schema_pkg_apis_meta_v1_TableRow(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableRowCondition":                           schema_pkg_apis_meta_v1_TableRowCondition(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Time":                                        schema_pkg_apis_meta_v1_Time(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Timestamp":                                   schema_pkg_apis_meta_v1_Timestamp(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta":                                    schema_pkg_apis_meta_v1_TypeMeta(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.UpdateOptions":                               schema_pkg_apis_meta_v1_UpdateOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.WatchEvent":                                  schema_pkg_apis_meta_v1_WatchEvent(ref),
+		"k8s.io/apimachinery/pkg/runtime.RawExtension":                                     schema_k8sio_apimachinery_pkg_runtime_RawExtension(ref),
+		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                                         schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
+		"k8s.io/apimachinery/pkg/runtime.Unknown":                                          schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
+		"k8s.io/apimachinery/pkg/version.Info":                                             schema_k8sio_apimachinery_pkg_version_Info(ref),
 	}
 }
 
@@ -1223,6 +1243,159 @@ func schema_pkg_apis_walrus_v1_ResourceRunList(ref common.ReferenceCallback) com
 	}
 }
 
+func schema_pkg_apis_walrus_v1_Schema(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Schema API for the template's version.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("github.com/seal-io/walrus/pkg/apis/walrus/v1.SchemaSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("github.com/seal-io/walrus/pkg/apis/walrus/v1.SchemaStatus"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walrus/v1.SchemaSpec", "github.com/seal-io/walrus/pkg/apis/walrus/v1.SchemaStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_walrus_v1_SchemaList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "SchemaList holds the list of Schema.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("github.com/seal-io/walrus/pkg/apis/walrus/v1.Schema"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walrus/v1.Schema", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
+func schema_pkg_apis_walrus_v1_SchemaSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "SchemaSpec defines the desired state of Setting.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"value": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Value contains the user input schema data, it is provided as a write-only input field.",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_walrus_v1_SchemaStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "SchemaStatus defines the template version's schema.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"value": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Value is the current value of the schema.",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions holds the conditions for the catalog.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"value"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Condition"},
+	}
+}
+
 func schema_pkg_apis_walrus_v1_Setting(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -1651,6 +1824,61 @@ func schema_pkg_apis_walrus_v1_VariableStatus(ref common.ReferenceCallback) comm
 	}
 }
 
+func schema_pkg_apis_walruscore_v1_BasicAuth(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"password": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Password for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials for helm repository. For HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_BasicAuthObjectReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the object.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
 func schema_pkg_apis_walruscore_v1_Catalog(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -1753,8 +1981,52 @@ func schema_pkg_apis_walruscore_v1_CatalogSpec(ref common.ReferenceCallback) com
 			SchemaProps: spec.SchemaProps{
 				Description: "CatalogSpec defines the desired state of Catalog.",
 				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"templateFormat": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TemplateFormat of the catalog.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"description": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Description of the catalog.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"filtering": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Filtering specifies the filtering rules for the catalog.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.Filtering"),
+						},
+					},
+					"vcsSource": {
+						SchemaProps: spec.SchemaProps{
+							Description: "VCSSource specifies the vcs source configure.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSSource"),
+						},
+					},
+					"helmRepositorySource": {
+						SchemaProps: spec.SchemaProps{
+							Description: "HelmRepositorySource specifies the helm repository configure.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmRepositorySource"),
+						},
+					},
+					"ociRegistrySource": {
+						SchemaProps: spec.SchemaProps{
+							Description: "OCIRegistrySource specifies the OCI registry configure.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.OCIRegistrySource"),
+						},
+					},
+				},
+				Required: []string{"templateFormat"},
 			},
 		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.Filtering", "github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmRepositorySource", "github.com/seal-io/walrus/pkg/apis/walruscore/v1.OCIRegistrySource", "github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSSource"},
 	}
 }
 
@@ -1764,8 +2036,41 @@ func schema_pkg_apis_walruscore_v1_CatalogStatus(ref common.ReferenceCallback) c
 			SchemaProps: spec.SchemaProps{
 				Description: "CatalogStatus defines the observed state of Catalog.",
 				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastSyncTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastSyncTime record the last auto/manual sync catalog time.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"templateCount": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TemplateCount include template count.",
+							Default:     0,
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions holds the conditions for the catalog.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"lastSyncTime", "templateCount"},
 			},
 		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Condition", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
@@ -1882,6 +2187,249 @@ func schema_pkg_apis_walruscore_v1_ConnectorStatus(ref common.ReferenceCallback)
 			SchemaProps: spec.SchemaProps{
 				Description: "ConnectorStatus defines the observed state of Connector.",
 				Type:        []string{"object"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_Filtering(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Filtering specifies the filtering rules for the catalog's template.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"includeFilter": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IncludeFilter specifies the regular expression for matching the include template name.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"excludeFilter": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ExcludeFilter specifies the regular expression for matching the exclude template name.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_HelmChart(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "HelmChart specifies the tgz format helm chart configure.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"password": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Password for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials for helm repository. For HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"),
+						},
+					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "URL of download the template from chart tgz address, e.g. https://charts.bitnami.com/bitnami/phpbb-16.5.0.tgz.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"url"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_HelmOCIChart(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "HelmOCIChart specifies the OCI format helm chart configure.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"password": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Password for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials for helm repository. For HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"),
+						},
+					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "URL of download the template from oci image with ref, e.g. oci://registry-1.docker.io/bitnamicharts/mysql?ref=10.1.0.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"url"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_HelmRepositorySource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "HelmRepositorySource specifies the helm repository configure.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"password": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Password for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials for helm repository. For HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"),
+						},
+					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "URL of the source address, a valid URL contains at least a protocol and host.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"url"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_LocalObjectReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the object.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_OCIRegistrySource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "OCIRegistrySource specifies the OCI registry configure.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Username for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"password": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Password for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials for helm repository. For HTTP/S basic auth the secret must contain 'username' and 'password' fields.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"),
+						},
+					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Domain for OCI registry.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.BasicAuthObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_OriginalUISchemaObjectReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the object.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
 			},
 		},
 	}
@@ -2241,6 +2789,27 @@ func schema_pkg_apis_walruscore_v1_ResourceStatus(ref common.ReferenceCallback) 
 	}
 }
 
+func schema_pkg_apis_walruscore_v1_SchemaObjectReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the object.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
 func schema_pkg_apis_walruscore_v1_Template(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -2343,8 +2912,46 @@ func schema_pkg_apis_walruscore_v1_TemplateSpec(ref common.ReferenceCallback) co
 			SchemaProps: spec.SchemaProps{
 				Description: "TemplateSpec defines the desired state of Template.",
 				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"templateFormat": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TemplateFormat of the content.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"description": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Description of the template.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"vcsRepository": {
+						SchemaProps: spec.SchemaProps{
+							Description: "VCSRepository specifies the vcs repository configure.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSRepository"),
+						},
+					},
+					"helmOCIChart": {
+						SchemaProps: spec.SchemaProps{
+							Description: "HelmOCIChart specifies the OCI format helm chart configure.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmOCIChart"),
+						},
+					},
+					"helmChart": {
+						SchemaProps: spec.SchemaProps{
+							Description: "HelmChart specifies the tgz format helm chart configure.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmChart"),
+						},
+					},
+				},
+				Required: []string{"templateFormat"},
 			},
 		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmChart", "github.com/seal-io/walrus/pkg/apis/walruscore/v1.HelmOCIChart", "github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSRepository"},
 	}
 }
 
@@ -2354,8 +2961,252 @@ func schema_pkg_apis_walruscore_v1_TemplateStatus(ref common.ReferenceCallback) 
 			SchemaProps: spec.SchemaProps{
 				Description: "TemplateStatus defines the observed state of Template.",
 				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"originalName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The original name of the template, name generate from chart.yaml, terraform git repo name.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"icon": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A URL to an SVG or PNG image to be used as an icon.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"versions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Versions holds the versions for the template.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateVersion"),
+									},
+								},
+							},
+						},
+					},
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions holds the conditions for the template.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.Condition"),
+									},
+								},
+							},
+						},
+					},
+				},
 			},
 		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateVersion", "k8s.io/apimachinery/pkg/apis/meta/v1.Condition"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_TemplateVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TemplateVersion defines the version of Template.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "URL of downloading the version. host.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"schemaRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Schema holds the schema for the template version.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.SchemaObjectReference"),
+						},
+					},
+					"originalUISchemaRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "OriginalUISchema holds the original UI schema for the template version.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.OriginalUISchemaObjectReference"),
+						},
+					},
+					"uiSchemaRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UISchema holds the UI schema for the template version.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.UISchemaObjectReference"),
+						},
+					},
+				},
+				Required: []string{"url"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.OriginalUISchemaObjectReference", "github.com/seal-io/walrus/pkg/apis/walruscore/v1.SchemaObjectReference", "github.com/seal-io/walrus/pkg/apis/walruscore/v1.UISchemaObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_TokenAuth(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"token": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Token for HTTP/S bear token.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials. For HTTP/S bear token the secret must contain 'token' field.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenObjectReference"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_TokenObjectReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the object.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_UISchemaObjectReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the object.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_VCSRepository(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "VCSRepository specifies the vcs repository of the template.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"token": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Token for HTTP/S bear token.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials. For HTTP/S bear token the secret must contain 'token' field.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenObjectReference"),
+						},
+					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "URL of download the template from vsc repository with ref and subpath, e.g. https://github.com/walrus-catalog/terraform-static-redis?ref=main.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"url"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenObjectReference"},
+	}
+}
+
+func schema_pkg_apis_walruscore_v1_VCSSource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "VCSSource specifies the vcs source configure.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"token": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Token for HTTP/S bear token.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secretRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SecretRef specifies the Secret containing authentication credentials. For HTTP/S bear token the secret must contain 'token' field.",
+							Ref:         ref("github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenObjectReference"),
+						},
+					},
+					"platform": {
+						SchemaProps: spec.SchemaProps{
+							Default: "",
+							Type:    []string{"string"},
+							Format:  "",
+						},
+					},
+					"url": {
+						SchemaProps: spec.SchemaProps{
+							Description: "URL of the source address, a valid URL contains at least a protocol and host.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"platform", "url"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TokenObjectReference"},
 	}
 }
 

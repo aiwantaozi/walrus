@@ -301,6 +301,45 @@ message ResourceRunList {
   repeated github.com.seal_io.walrus.pkg.apis.walruscore.v1.ResourceRun items = 2;
 }
 
+// Schema API for the template's version.
+//
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:apireg-gen:resource:scope="Namespaced",categories=["walrus"],subResources=["status"]
+message Schema {
+  optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+
+  optional SchemaSpec spec = 2;
+
+  optional SchemaStatus status = 3;
+}
+
+// SchemaList holds the list of Schema.
+//
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+message SchemaList {
+  optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 1;
+
+  repeated Schema items = 2;
+}
+
+// SchemaSpec defines the desired state of Setting.
+message SchemaSpec {
+  // Value contains the user input schema data,
+  // it is provided as a write-only input field.
+  optional bytes value = 1;
+}
+
+// SchemaStatus defines the template version's schema.
+message SchemaStatus {
+  // Value is the current value of the schema.
+  optional bytes value = 1;
+
+  // Conditions holds the conditions for the catalog.
+  // +optional
+  repeated k8s.io.apimachinery.pkg.apis.meta.v1.Condition conditions = 2;
+}
+
 // Setting is the schema for the settings API.
 //
 // +genclient
