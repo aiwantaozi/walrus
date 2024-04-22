@@ -635,6 +635,167 @@ func DeleteWithCtrlClient(ctx context.Context, cli ctrlcli.Client, expected Meta
 	return nil
 }
 
+type (
+	UpdateStatusClient[T MetaObject] interface {
+		UpdateStatus(ctx context.Context, obj T, opts meta.UpdateOptions) (T, error)
+		Get(ctx context.Context, name string, opts meta.GetOptions) (T, error)
+	}
+
+	_UpdateStatusOptions[T MetaObject] struct {
+		meta.UpdateOptions
+		AlignFunc AlignWithFn[T]
+	}
+
+	UpdateStatusOption[T MetaObject] func(*_UpdateStatusOptions[T])
+)
+
+// WithUpdateStatusMetaOptions sets the update options.
+func WithUpdateStatusMetaOptions[T MetaObject](opts meta.UpdateOptions) UpdateStatusOption[T] {
+	return func(uo *_UpdateStatusOptions[T]) {
+		uo.UpdateOptions = opts
+	}
+}
+
+// WithUpdateStatusAlign with the align function to update the resource status.
+func WithUpdateStatusAlign[T MetaObject](fn AlignWithFn[T]) UpdateStatusOption[T] {
+	return func(uo *_UpdateStatusOptions[T]) {
+		uo.AlignFunc = fn
+	}
+}
+
+// UpdateStatus will update the resource's status if resource exists,
+// and returns the updated resource.
+//
+// UpdateStatus returns error if the resource is not found or updating failed.
+//
+// UpdateStatus will retry if the resource is updating conflicted when AlignWithFn is provided.
+func UpdateStatus[T MetaObject](ctx context.Context, cli UpdateStatusClient[T], expected T, opts ...UpdateStatusOption[T]) (T, error) {
+	if reflect.ValueOf(expected).IsZero() {
+		return expected, errors.New("expected is nil")
+	}
+
+	var uo _UpdateStatusOptions[T]
+	for i := range opts {
+		opts[i](&uo)
+	}
+
+	name := expected.GetName()
+	if name == "" {
+		return expected, errors.New("resource name may not be empty")
+	}
+
+	actual, err := cli.Get(ctx, name, meta.GetOptions{
+		ResourceVersion: "0",
+	})
+	if err != nil {
+		return actual, err
+	}
+
+	var copied T
+	if uo.AlignFunc != nil {
+		var skip bool
+		copied, skip, err = uo.AlignFunc(actual.DeepCopyObject().(T))
+		if err != nil {
+			return actual, err
+		}
+		if skip {
+			return actual, nil
+		}
+	} else {
+		copied = expected.DeepCopyObject().(T)
+
+		// Copy resource version for update.
+		copiedOm, actualOm := copied, actual
+		copiedOm.SetResourceVersion(actualOm.GetResourceVersion())
+	}
+
+	updated, err := cli.UpdateStatus(ctx, copied, meta.UpdateOptions{
+		DryRun: uo.DryRun,
+	})
+	if err != nil {
+		if isRetryError(err) {
+			return UpdateStatus(ctx, cli, expected, opts...)
+		}
+
+		if !kerrors.IsConflict(err) && !kerrors.IsNotAcceptable(err) {
+			return actual, err
+		}
+
+		// Retry if conflicted when align function is provided.
+		if uo.AlignFunc != nil {
+			return UpdateStatus(ctx, cli, expected, opts...)
+		}
+	}
+
+	return updated, err
+}
+
+// UpdateStatusWithCtrlClient is similar to UpdateStatus, but uses the ctrl client.
+func UpdateStatusWithCtrlClient[T MetaObject](ctx context.Context, cli ctrlcli.Client, expected T, opts ...UpdateStatusOption[T]) (T, error) {
+	if reflect.ValueOf(expected).IsZero() {
+		return expected, errors.New("expected is nil")
+	}
+
+	var uo _UpdateStatusOptions[T]
+	for i := range opts {
+		opts[i](&uo)
+	}
+
+	name := expected.GetName()
+	if name == "" {
+		return expected, errors.New("resource name may not be empty")
+	}
+
+	actual := expected.DeepCopyObject().(T)
+	err := cli.Get(ctx, ctrlcli.ObjectKeyFromObject(expected), actual)
+	if err != nil {
+		return actual, err
+	}
+
+	var copied T
+	if uo.AlignFunc != nil {
+		var skip bool
+		copied, skip, err = uo.AlignFunc(actual.DeepCopyObject().(T))
+		if err != nil {
+			return actual, err
+		}
+		if skip {
+			return actual, nil
+		}
+	} else {
+		copied = expected.DeepCopyObject().(T)
+
+		// Copy resource version for update.
+		copiedOm, actualOm := copied, actual
+		copiedOm.SetResourceVersion(actualOm.GetResourceVersion())
+	}
+
+	updated := copied
+	err = cli.Status().Update(ctx, updated, &ctrlcli.SubResourceUpdateOptions{
+		UpdateOptions: ctrlcli.UpdateOptions{
+			DryRun:       uo.DryRun,
+			FieldManager: uo.FieldManager,
+			Raw:          ptr.To(uo.UpdateOptions),
+		},
+	})
+	if err != nil {
+		if isRetryError(err) {
+			return UpdateStatusWithCtrlClient(ctx, cli, expected, opts...)
+		}
+
+		if !kerrors.IsConflict(err) && !kerrors.IsNotAcceptable(err) {
+			return actual, err
+		}
+
+		// Retry if conflicted when align function is provided.
+		if uo.AlignFunc != nil {
+			return UpdateStatusWithCtrlClient(ctx, cli, expected, opts...)
+		}
+	}
+
+	return updated, err
+}
+
 func isRetryError(err error) bool {
 	if kerrors.IsTooManyRequests(err) || kerrors.IsGone(err) || kerrors.IsTimeout(err) || kerrors.IsServerTimeout(err) {
 		time.Sleep(10 * time.Millisecond)

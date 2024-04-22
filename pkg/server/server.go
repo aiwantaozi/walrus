@@ -154,6 +154,12 @@ func (s *Server) Prepare(ctx context.Context) error {
 			return err
 		}
 
+		// Initialize built schedule tasks.
+		err = systemkuberes.InstallBuiltinScheduleTasks(ctx, loopbackKubeCli)
+		if err != nil {
+			return err
+		}
+
 		klog.Info("!!! everything is ready !!!")
 		return nil
 	})
