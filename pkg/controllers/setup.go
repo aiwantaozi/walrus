@@ -10,6 +10,7 @@ import (
 	"github.com/seal-io/walrus/pkg/controller"
 	"github.com/seal-io/walrus/pkg/controllers/walrus"
 	"github.com/seal-io/walrus/pkg/controllers/walruscore"
+	"github.com/seal-io/walrus/pkg/controllers/walrusutil"
 )
 
 // NB(thxCode): Register controllers below.
@@ -22,6 +23,7 @@ var setupers = []controller.Setup{
 	new(walruscore.ResourceReconciler),
 	new(walruscore.ResourceDefinitionReconciler),
 	new(walruscore.TemplateReconciler),
+	new(walrusutil.ScheduleTaskReconciler),
 }
 
 // Setup installs the CRD controllers.
