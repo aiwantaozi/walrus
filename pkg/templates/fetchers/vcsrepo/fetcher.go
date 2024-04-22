@@ -2,6 +2,7 @@ package vcsrepo
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -9,13 +10,13 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/seal-io/utils/stringx"
-	kerrors "k8s.io/apimachinery/pkg/api/errors"
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/klog/v2"
 	"k8s.io/utils/set"
 
 	walruscore "github.com/seal-io/walrus/pkg/apis/walruscore/v1"
 	"github.com/seal-io/walrus/pkg/apistatus"
+	"github.com/seal-io/walrus/pkg/kubeclientset"
 	"github.com/seal-io/walrus/pkg/system"
 	"github.com/seal-io/walrus/pkg/systemmeta"
 	"github.com/seal-io/walrus/pkg/systemsetting"
@@ -84,7 +85,7 @@ func (l *Fetcher) Fetch(ctx context.Context, obj *walruscore.Template) (*walrusc
 	// Ensure template before create schema.
 	obj, err = getOrCreateTemplate(ctx, obj)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to ensure template %s/%s: %w", obj.Namespace, obj.Name, err)
 	}
 
 	templateVersions, err := genTemplateVersions(ctx, obj, versions, versionSchema)
@@ -136,23 +137,9 @@ func updateTemplateStatus(ctx context.Context, obj *walruscore.Template) error {
 
 // getOrCreateTemplate get or create template.
 func getOrCreateTemplate(ctx context.Context, obj *walruscore.Template) (*walruscore.Template, error) {
-	loopbackKubeClient := system.LoopbackKubeClient.Get()
+	templateCli := system.LoopbackKubeClient.Get().WalruscoreV1().Templates(obj.Namespace)
 
-	existed, err := loopbackKubeClient.WalruscoreV1().Templates(obj.Namespace).Get(ctx, obj.Name, meta.GetOptions{})
-	if err != nil {
-		if !kerrors.IsNotFound(err) {
-			return nil, err
-		}
-
-		// Create template.
-		existed, err = loopbackKubeClient.WalruscoreV1().Templates(obj.Namespace).Create(ctx, obj, meta.CreateOptions{})
-		if err != nil && !kerrors.IsAlreadyExists(err) {
-			return nil, err
-		}
-
-		return existed, nil
-	}
-	return existed, nil
+	return kubeclientset.Create(ctx, templateCli, obj)
 }
 
 // genTemplateVersionsFromGitRepo retrieves template versions from a git repository.
