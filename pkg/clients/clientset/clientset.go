@@ -30,6 +30,7 @@ import (
 	storagev1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/storage/v1"
 	walrusv1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walrus/v1"
 	walruscorev1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walruscore/v1"
+	walrusutilv1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walrusutil/v1"
 	argoprojv1alpha1workflow "github.com/seal-io/walrus/pkg/clients/clientset/typed/workflow/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
@@ -39,6 +40,7 @@ import (
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	WalruscoreV1() walruscorev1.WalruscoreV1Interface
+	WalrusutilV1() walrusutilv1.WalrusutilV1Interface
 	WalrusV1() walrusv1.WalrusV1Interface
 	AdmissionV1() admissionv1.AdmissionV1Interface
 	AdmissionregistrationV1() admissionregistrationv1.AdmissionregistrationV1Interface
@@ -66,6 +68,7 @@ type Interface interface {
 type Clientset struct {
 	*discovery.DiscoveryClient
 	walruscoreV1                *walruscorev1.WalruscoreV1Client
+	walrusutilV1                *walrusutilv1.WalrusutilV1Client
 	walrusV1                    *walrusv1.WalrusV1Client
 	admissionV1                 *admissionv1.AdmissionV1Client
 	admissionregistrationV1     *admissionregistrationv1.AdmissionregistrationV1Client
@@ -92,6 +95,11 @@ type Clientset struct {
 // WalruscoreV1 retrieves the WalruscoreV1Client
 func (c *Clientset) WalruscoreV1() walruscorev1.WalruscoreV1Interface {
 	return c.walruscoreV1
+}
+
+// WalrusutilV1 retrieves the WalrusutilV1Client
+func (c *Clientset) WalrusutilV1() walrusutilv1.WalrusutilV1Interface {
+	return c.walrusutilV1
 }
 
 // WalrusV1 retrieves the WalrusV1Client
@@ -247,6 +255,10 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 	if err != nil {
 		return nil, err
 	}
+	cs.walrusutilV1, err = walrusutilv1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	if err != nil {
+		return nil, err
+	}
 	cs.walrusV1, err = walrusv1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
@@ -353,6 +365,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.walruscoreV1 = walruscorev1.New(c)
+	cs.walrusutilV1 = walrusutilv1.New(c)
 	cs.walrusV1 = walrusv1.New(c)
 	cs.admissionV1 = admissionv1.New(c)
 	cs.admissionregistrationV1 = admissionregistrationv1.New(c)

@@ -10,6 +10,7 @@ import (
 	argoprojv1alpha1workflow "github.com/argoproj/argo-workflows/v3/pkg/apis/workflow/v1alpha1"
 	walrusv1 "github.com/seal-io/walrus/pkg/apis/walrus/v1"
 	walruscorev1 "github.com/seal-io/walrus/pkg/apis/walruscore/v1"
+	walrusutilv1 "github.com/seal-io/walrus/pkg/apis/walrusutil/v1"
 	admissionv1 "k8s.io/api/admission/v1"
 	admissionregistrationv1 "k8s.io/api/admissionregistration/v1"
 	appsv1 "k8s.io/api/apps/v1"
@@ -40,6 +41,7 @@ var Codecs = serializer.NewCodecFactory(Scheme)
 var ParameterCodec = runtime.NewParameterCodec(Scheme)
 var localSchemeBuilder = runtime.SchemeBuilder{
 	walruscorev1.AddToScheme,
+	walrusutilv1.AddToScheme,
 	walrusv1.AddToScheme,
 	admissionv1.AddToScheme,
 	admissionregistrationv1.AddToScheme,

@@ -29,6 +29,7 @@ import (
 	storage "github.com/seal-io/walrus/pkg/clients/informers/storage"
 	walrus "github.com/seal-io/walrus/pkg/clients/informers/walrus"
 	walruscore "github.com/seal-io/walrus/pkg/clients/informers/walruscore"
+	walrusutil "github.com/seal-io/walrus/pkg/clients/informers/walrusutil"
 	workflow "github.com/seal-io/walrus/pkg/clients/informers/workflow"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
@@ -274,6 +275,7 @@ type SharedInformerFactory interface {
 	Storage() storage.Interface
 	Walrus() walrus.Interface
 	Walruscore() walruscore.Interface
+	Walrusutil() walrusutil.Interface
 	Argoprojworkflow() workflow.Interface
 }
 
@@ -343,6 +345,10 @@ func (f *sharedInformerFactory) Walrus() walrus.Interface {
 
 func (f *sharedInformerFactory) Walruscore() walruscore.Interface {
 	return walruscore.New(f, f.namespace, f.tweakListOptions)
+}
+
+func (f *sharedInformerFactory) Walrusutil() walrusutil.Interface {
+	return walrusutil.New(f, f.namespace, f.tweakListOptions)
 }
 
 func (f *sharedInformerFactory) Argoprojworkflow() workflow.Interface {

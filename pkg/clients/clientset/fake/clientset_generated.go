@@ -49,6 +49,8 @@ import (
 	fakewalrusv1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walrus/v1/fake"
 	walruscorev1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walruscore/v1"
 	fakewalruscorev1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walruscore/v1/fake"
+	walrusutilv1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walrusutil/v1"
+	fakewalrusutilv1 "github.com/seal-io/walrus/pkg/clients/clientset/typed/walrusutil/v1/fake"
 	argoprojv1alpha1workflow "github.com/seal-io/walrus/pkg/clients/clientset/typed/workflow/v1alpha1"
 	fakeargoprojv1alpha1workflow "github.com/seal-io/walrus/pkg/clients/clientset/typed/workflow/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -111,6 +113,11 @@ var (
 // WalruscoreV1 retrieves the WalruscoreV1Client
 func (c *Clientset) WalruscoreV1() walruscorev1.WalruscoreV1Interface {
 	return &fakewalruscorev1.FakeWalruscoreV1{Fake: &c.Fake}
+}
+
+// WalrusutilV1 retrieves the WalrusutilV1Client
+func (c *Clientset) WalrusutilV1() walrusutilv1.WalrusutilV1Interface {
+	return &fakewalrusutilv1.FakeWalrusutilV1{Fake: &c.Fake}
 }
 
 // WalrusV1 retrieves the WalrusV1Client

@@ -10,6 +10,7 @@ import (
 	workflowv1alpha1 "github.com/argoproj/argo-workflows/v3/pkg/apis/workflow/v1alpha1"
 	walrusv1 "github.com/seal-io/walrus/pkg/apis/walrus/v1"
 	walruscorev1 "github.com/seal-io/walrus/pkg/apis/walruscore/v1"
+	walrusutilv1 "github.com/seal-io/walrus/pkg/apis/walrusutil/v1"
 	admissionregistrationv1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/admissionregistration/v1"
 	applyconfigurationapiextensionsv1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/apiextensions/v1"
 	applyconfigurationapiregistrationv1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/apiregistration/v1"
@@ -28,6 +29,7 @@ import (
 	applyconfigurationstoragev1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/storage/v1"
 	applyconfigurationwalrusv1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/walrus/v1"
 	applyconfigurationwalruscorev1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/walruscore/v1"
+	applyconfigurationwalrusutilv1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/walrusutil/v1"
 	applyconfigurationworkflowv1alpha1 "github.com/seal-io/walrus/pkg/clients/applyconfiguration/workflow/v1alpha1"
 	v1 "k8s.io/api/admissionregistration/v1"
 	appsv1 "k8s.io/api/apps/v1"
@@ -1388,6 +1390,14 @@ func ForKind(kind schema.GroupVersionKind) interface{} {
 		return &applyconfigurationwalruscorev1.VCSRepositoryApplyConfiguration{}
 	case walruscorev1.SchemeGroupVersion.WithKind("VCSSource"):
 		return &applyconfigurationwalruscorev1.VCSSourceApplyConfiguration{}
+
+		// Group=walrusutil.seal.io, Version=v1
+	case walrusutilv1.SchemeGroupVersion.WithKind("ScheduleTask"):
+		return &applyconfigurationwalrusutilv1.ScheduleTaskApplyConfiguration{}
+	case walrusutilv1.SchemeGroupVersion.WithKind("ScheduleTaskSpec"):
+		return &applyconfigurationwalrusutilv1.ScheduleTaskSpecApplyConfiguration{}
+	case walrusutilv1.SchemeGroupVersion.WithKind("ScheduleTaskStatus"):
+		return &applyconfigurationwalrusutilv1.ScheduleTaskStatusApplyConfiguration{}
 
 	}
 	return nil

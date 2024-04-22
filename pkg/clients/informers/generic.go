@@ -12,6 +12,7 @@ import (
 	workflowv1alpha1 "github.com/argoproj/argo-workflows/v3/pkg/apis/workflow/v1alpha1"
 	walrusv1 "github.com/seal-io/walrus/pkg/apis/walrus/v1"
 	walruscorev1 "github.com/seal-io/walrus/pkg/apis/walruscore/v1"
+	walrusutilv1 "github.com/seal-io/walrus/pkg/apis/walrusutil/v1"
 	v1 "k8s.io/api/admissionregistration/v1"
 	appsv1 "k8s.io/api/apps/v1"
 	autoscalingv1 "k8s.io/api/autoscaling/v1"
@@ -258,6 +259,10 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Walruscore().V1().Schemas().Informer()}, nil
 	case walruscorev1.SchemeGroupVersion.WithResource("templates"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Walruscore().V1().Templates().Informer()}, nil
+
+		// Group=walrusutil.seal.io, Version=v1
+	case walrusutilv1.SchemeGroupVersion.WithResource("scheduletasks"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Walrusutil().V1().ScheduleTasks().Informer()}, nil
 
 	}
 

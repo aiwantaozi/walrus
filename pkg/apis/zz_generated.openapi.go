@@ -168,6 +168,10 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.TemplateVersion":                         schema_pkg_apis_walruscore_v1_TemplateVersion(ref),
 		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSRepository":                           schema_pkg_apis_walruscore_v1_VCSRepository(ref),
 		"github.com/seal-io/walrus/pkg/apis/walruscore/v1.VCSSource":                               schema_pkg_apis_walruscore_v1_VCSSource(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTask":                            schema_pkg_apis_walrusutil_v1_ScheduleTask(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTaskList":                        schema_pkg_apis_walrusutil_v1_ScheduleTaskList(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTaskSpec":                        schema_pkg_apis_walrusutil_v1_ScheduleTaskSpec(ref),
+		"github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTaskStatus":                      schema_pkg_apis_walrusutil_v1_ScheduleTaskStatus(ref),
 		"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource":                                      schema_k8sio_api_core_v1_AWSElasticBlockStoreVolumeSource(ref),
 		"k8s.io/api/core/v1.Affinity":                                                              schema_k8sio_api_core_v1_Affinity(ref),
 		"k8s.io/api/core/v1.AttachedVolume":                                                        schema_k8sio_api_core_v1_AttachedVolume(ref),
@@ -6912,6 +6916,213 @@ func schema_pkg_apis_walruscore_v1_VCSSource(ref common.ReferenceCallback) commo
 				Required: []string{"platform", "url"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_walrusutil_v1_ScheduleTask(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ScheduleTask is the schema for the scheduletasks API.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTaskSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTaskStatus"),
+						},
+					},
+				},
+				Required: []string{"spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTaskSpec", "github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTaskStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_walrusutil_v1_ScheduleTaskList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ScheduleTaskList holds the list of ScheduleTask.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Default: map[string]interface{}{},
+							Ref:     ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Default: map[string]interface{}{},
+										Ref:     ref("github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTask"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/seal-io/walrus/pkg/apis/walrusutil/v1.ScheduleTask", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
+func schema_pkg_apis_walrusutil_v1_ScheduleTaskSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ScheduleTaskSpec defines the desired state of ScheduleTask.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"schedule": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Schedule is a schedule to run the task in Cron format, see https://en.wikipedia.org/wiki/Cron.",
+							Default:     "",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"suspend": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Suspend, when set to true, prevents new task from starting, it does not affect already started task.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"await": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Await is a flag that, when set to true, indicates that the task should wait until the scheduled time to execute when creating the scheduled task.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"timeZone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "TimeZone specifies the timezone used for calculating the cron schedule, if not provided, the default is the local time of the machine, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"activeTaskDeadlineSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ActiveTaskDeadlineSeconds specifies the active task timeout duration in seconds, if not specified, the default timeout is three times the schedule interval, with a maximum timeout of 6 hours.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+				},
+				Required: []string{"schedule"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_walrusutil_v1_ScheduleTaskStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ScheduleTaskStatus defines the observed state of ScheduleTask.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"schedule": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Schedule is the current schedule to run the task in Cron format, see https://en.wikipedia.org/wiki/Cron.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"activeTaskName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ActiveTaskName is the currently running task names.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"activeTaskTimeoutTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ActiveTaskTimeoutTime is the time currently running task timeout.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"lastScheduleTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastScheduleTime is the last time the task was successfully scheduled.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"lastSuccessfulTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastSuccessfulTime is the last time the task successfully completed.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"lastFailedTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastFailedTime is the last time the task failed.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"lastFailedMessage": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastFailedMessage is the last error message of the failed task.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
