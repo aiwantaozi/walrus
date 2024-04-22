@@ -17,6 +17,7 @@ import (
 	"github.com/seal-io/walrus/pkg/kubeclientset/review"
 	"github.com/seal-io/walrus/pkg/webhook"
 	"github.com/seal-io/walrus/pkg/webhooks/walruscore"
+	"github.com/seal-io/walrus/pkg/webhooks/walrusutil"
 )
 
 // NB(thxCode): Register webhooks below.
@@ -27,6 +28,7 @@ var (
 		new(walruscore.ConnectorBindingWebhook),
 		new(walruscore.ResourceDefinitionWebhook),
 		new(walruscore.TemplateWebhook),
+		new(walrusutil.ScheduleTaskWebhook),
 	}
 	cfgGetters = []_WebhookConfigurationsGetter{
 		walruscore.GetWebhookConfigurations,
