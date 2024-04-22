@@ -13,6 +13,7 @@ import (
 
 	walrus "github.com/seal-io/walrus/pkg/apis/walrus/v1"
 	walruscore "github.com/seal-io/walrus/pkg/apis/walruscore/v1"
+	walrusutil "github.com/seal-io/walrus/pkg/apis/walrusutil/v1"
 	"github.com/seal-io/walrus/pkg/clients/clientset"
 	"github.com/seal-io/walrus/pkg/kubeclientset"
 	"github.com/seal-io/walrus/pkg/kubeclientset/review"
@@ -22,6 +23,7 @@ import (
 var (
 	crdGetters = []_CustomResourceDefinitionsGetter{
 		walruscore.GetCustomResourceDefinitions,
+		walrusutil.GetCustomResourceDefinitions,
 	}
 	apiSvcGetters = []_APIServiceGetter{
 		walrus.GetAPIService,

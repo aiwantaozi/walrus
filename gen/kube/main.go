@@ -42,6 +42,7 @@ func generate() error {
 		*/
 		APIs: []string{
 			"github.com/seal-io/walrus/pkg/apis/walruscore/v1",
+			"github.com/seal-io/walrus/pkg/apis/walrusutil/v1",
 		},
 		/*
 			Specify the package paths of the Extension APIs.
@@ -93,6 +94,7 @@ func generate() error {
 		*/
 		Webhooks: []string{
 			"github.com/seal-io/walrus/pkg/webhooks/walruscore",
+			"github.com/seal-io/walrus/pkg/webhooks/walrusutil",
 		},
 		/*
 			Specify the exceptions to the plural form.
