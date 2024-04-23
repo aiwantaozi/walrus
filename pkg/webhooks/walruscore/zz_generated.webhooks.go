@@ -33,6 +33,7 @@ func GetValidatingWebhookConfiguration(n string, c v1.WebhookClientConfig) *v1.V
 			vwh_walrus_pkg_webhooks_walruscore_CatalogWebhook(c),
 			vwh_walrus_pkg_webhooks_walruscore_ConnectorBindingWebhook(c),
 			vwh_walrus_pkg_webhooks_walruscore_ConnectorWebhook(c),
+			vwh_walrus_pkg_webhooks_walruscore_SchemaWebhook(c),
 			vwh_walrus_pkg_webhooks_walruscore_TemplateWebhook(c),
 		},
 	}
@@ -51,6 +52,7 @@ func GetMutatingWebhookConfiguration(n string, c v1.WebhookClientConfig) *v1.Mut
 			mwh_walrus_pkg_webhooks_walruscore_ConnectorBindingWebhook(c),
 			mwh_walrus_pkg_webhooks_walruscore_ConnectorWebhook(c),
 			mwh_walrus_pkg_webhooks_walruscore_ResourceDefinitionWebhook(c),
+			mwh_walrus_pkg_webhooks_walruscore_SchemaWebhook(c),
 		},
 	}
 }
@@ -326,6 +328,98 @@ func mwh_walrus_pkg_webhooks_walruscore_ResourceDefinitionWebhook(c v1.WebhookCl
 				},
 				Operations: []v1.OperationType{
 					"CREATE",
+					"UPDATE",
+				},
+			},
+		},
+		FailurePolicy:  ptr.To[v1.FailurePolicyType]("Fail"),
+		MatchPolicy:    ptr.To[v1.MatchPolicyType]("Equivalent"),
+		SideEffects:    ptr.To[v1.SideEffectClass]("None"),
+		TimeoutSeconds: ptr.To[int32](10),
+		AdmissionReviewVersions: []string{
+			"v1",
+		},
+	}
+}
+
+func (*SchemaWebhook) ValidatePath() string {
+	return "/validate-walruscore-seal-io-v1-schema"
+}
+
+func vwh_walrus_pkg_webhooks_walruscore_SchemaWebhook(c v1.WebhookClientConfig) v1.ValidatingWebhook {
+	path := "/validate-walruscore-seal-io-v1-schema"
+
+	cc := c.DeepCopy()
+	if cc.Service != nil {
+		cc.Service.Path = &path
+	} else if c.URL != nil {
+		cc.URL = ptr.To(*c.URL + path)
+	}
+
+	return v1.ValidatingWebhook{
+		Name:         "validate.walruscore.seal.io.v1.schema",
+		ClientConfig: *cc,
+		Rules: []v1.RuleWithOperations{
+			{
+				Rule: v1.Rule{
+					APIGroups: []string{
+						"walruscore.seal.io",
+					},
+					APIVersions: []string{
+						"v1",
+					},
+					Resources: []string{
+						"schemas",
+					},
+					Scope: ptr.To[v1.ScopeType]("Namespaced"),
+				},
+				Operations: []v1.OperationType{
+					"UPDATE",
+				},
+			},
+		},
+		FailurePolicy:  ptr.To[v1.FailurePolicyType]("Fail"),
+		MatchPolicy:    ptr.To[v1.MatchPolicyType]("Equivalent"),
+		SideEffects:    ptr.To[v1.SideEffectClass]("None"),
+		TimeoutSeconds: ptr.To[int32](10),
+		AdmissionReviewVersions: []string{
+			"v1",
+		},
+	}
+}
+
+func (*SchemaWebhook) DefaultPath() string {
+	return "/mutate-walruscore-seal-io-v1-schema"
+}
+
+func mwh_walrus_pkg_webhooks_walruscore_SchemaWebhook(c v1.WebhookClientConfig) v1.MutatingWebhook {
+	path := "/mutate-walruscore-seal-io-v1-schema"
+
+	cc := c.DeepCopy()
+	if cc.Service != nil {
+		cc.Service.Path = &path
+	} else if c.URL != nil {
+		cc.URL = ptr.To(*c.URL + path)
+	}
+
+	return v1.MutatingWebhook{
+		Name:         "mutate.walruscore.seal.io.v1.schema",
+		ClientConfig: *cc,
+		Rules: []v1.RuleWithOperations{
+			{
+				Rule: v1.Rule{
+					APIGroups: []string{
+						"walruscore.seal.io",
+					},
+					APIVersions: []string{
+						"v1",
+					},
+					Resources: []string{
+						"schemas",
+					},
+					Scope: ptr.To[v1.ScopeType]("Namespaced"),
+				},
+				Operations: []v1.OperationType{
 					"UPDATE",
 				},
 			},

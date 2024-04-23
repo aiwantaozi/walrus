@@ -2,7 +2,6 @@ package walrus
 
 import (
 	"context"
-	"strings"
 
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -12,10 +11,7 @@ import (
 
 	walrus "github.com/seal-io/walrus/pkg/apis/walrus/v1"
 	walruscore "github.com/seal-io/walrus/pkg/apis/walruscore/v1"
-	"github.com/seal-io/walrus/pkg/apistatus"
 	"github.com/seal-io/walrus/pkg/extensionapi"
-	"github.com/seal-io/walrus/pkg/systemmeta"
-	"github.com/seal-io/walrus/pkg/templates/kubehelper"
 )
 
 // SchemaHandler handles v1.Schema objects.
@@ -95,32 +91,4 @@ func (h *SchemaHandler) CastObjectTo(do *walrus.Schema) (uo *walruscore.Schema) 
 
 func (h *SchemaHandler) CastObjectFrom(uo *walruscore.Schema) (do *walrus.Schema) {
 	return (*walrus.Schema)(uo)
-}
-
-func (h *SchemaHandler) OnUpdate(ctx context.Context, obj, _ runtime.Object, opts ctrlcli.UpdateOptions) (runtime.Object, error) {
-	s := obj.(*walrus.Schema)
-
-	if apistatus.SchemaStatusReset.IsTrue(obj) {
-		var (
-			ouis    walruscore.Schema
-			ouisKey = ctrlcli.ObjectKey{
-				Namespace: s.Namespace,
-				Name:      strings.TrimSuffix(s.Name, walruscore.NameSuffixUISchema) + walruscore.NameSuffixOriginalUISchema,
-			}
-		)
-		err := h.client.Get(ctx, ouisKey, &ouis)
-		if err != nil {
-			return nil, err
-		}
-
-		apistatus.SchemaStatusReset.False(s, "", "")
-		systemmeta.UnnoteResource(s)
-		s.Status.Value = ouis.Status.Value
-	} else {
-		systemmeta.NoteResource(s, "", map[string]string{kubehelper.SchemaUserEditedNote: "true"})
-	}
-
-	uo := h.CastObjectTo(s)
-	err := h.client.Update(ctx, uo, &opts)
-	return h.CastObjectFrom(uo), err
 }

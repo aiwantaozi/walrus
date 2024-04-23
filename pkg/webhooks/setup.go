@@ -27,6 +27,7 @@ var (
 		new(walruscore.ConnectorBindingWebhook),
 		new(walruscore.ResourceDefinitionWebhook),
 		new(walruscore.TemplateWebhook),
+		new(walruscore.SchemaWebhook),
 	}
 	cfgGetters = []_WebhookConfigurationsGetter{
 		walruscore.GetWebhookConfigurations,

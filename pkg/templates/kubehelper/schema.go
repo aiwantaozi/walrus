@@ -86,7 +86,12 @@ func GenTemplateVersion(
 func createOrUpdateSchema(ctx context.Context, loopbackKubeCli clientset.Interface, t *walruscore.Template, name string, data []byte) error {
 	cli := loopbackKubeCli.WalruscoreV1().Schemas(t.Namespace)
 
-	var es *walruscore.Schema
+	var (
+		es              *walruscore.Schema
+		editBySystemAnn = map[string]string{
+			SchemaUserEditedNote: "false",
+		}
+	)
 	{
 		es = &walruscore.Schema{
 			ObjectMeta: meta.ObjectMeta{
@@ -101,9 +106,14 @@ func createOrUpdateSchema(ctx context.Context, loopbackKubeCli clientset.Interfa
 			},
 		}
 		kubemeta.ControlOn(es, t, walruscore.SchemeGroupVersion.WithKind("Template"))
+		systemmeta.NoteResource(es, "", editBySystemAnn)
 	}
 
 	alignFn := func(as *walruscore.Schema) (*walruscore.Schema, bool, error) {
+		if systemmeta.DescribeResourceNote(as, SchemaUserEditedNote) != "true" {
+			systemmeta.NoteResource(as, "", editBySystemAnn)
+		}
+
 		if bytes.Equal(as.Status.Value.Raw, data) {
 			return as, true, nil
 		}
